@@ -1,6 +1,3 @@
-type PropsType = {
-
-}
 
 const Header = () => {
     return (
