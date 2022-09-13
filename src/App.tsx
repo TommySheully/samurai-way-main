@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 import Header from "./Components/Header";
-import Tehnologies from "./Components/Tehnologies";
+import Technologies from "./Components/Tehnologies";
 
 
 function App() {
@@ -9,7 +9,7 @@ function App() {
         <div className="App">
             Hello, samurai! Let's go!
             <Header/>
-            <Tehnologies/>
+            <Technologies/>
         </div>
     );
 }
