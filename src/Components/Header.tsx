@@ -1,3 +1,7 @@
+type PropsType = {
+
+}
+
 const Header = () => {
     return (
         <div>

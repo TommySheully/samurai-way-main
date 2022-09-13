@@ -1,4 +1,6 @@
-const Tehnologies = () => {
+
+
+const Technologies = () => {
     return (
         <div>
             <ul>
@@ -11,4 +13,4 @@ const Tehnologies = () => {
     );
 }
 
-export default Tehnologies;
+export default Technologies;
