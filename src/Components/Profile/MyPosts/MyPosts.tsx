@@ -1,7 +1,7 @@
 import React from 'react';
 import Post from "./Posts/Post";
 
-const MyPosts = (props) => {
+const MyPosts = () => {
     return (
         <div>
             My Posts
@@ -9,8 +9,8 @@ const MyPosts = (props) => {
                 <textarea></textarea>
                 <button>Add post</button>
             </div>
-            <Post message='Hi, how are you?'/>
-            <Post message='My first post'/>
+            <Post message='Hi, how are you?' likesCount={0}/>
+            <Post message='My first post' likesCount={23}/>
         </div>
     )
 };
