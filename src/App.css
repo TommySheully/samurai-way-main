@@ -48,6 +48,11 @@
     margin: 0 auto;
 }
 
+.App-wrapper-content {
+    grid-area: c;
+    background-color: aquamarine;
+}
+
 
 
 

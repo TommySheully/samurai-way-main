@@ -6,19 +6,19 @@ const NavBar = () => {
     return (
         <nav className={navCss.nav}>
             <div className={navCss.item}>
-                <a>Profile</a>
+                <a href="/Profile">Profile</a>
             </div>
             <div className={navCss.item}>
-                <a>Messages</a>
+                <a href="/Dialogs">Messages</a>
             </div>
             <div className={navCss.item}>
-                <a>News</a>
+                <a href="/News">News</a>
             </div>
             <div className={navCss.item}>
-                <a>Music</a>
+                <a href="/Music">Music</a>
             </div>
             <div className={navCss.item}>
-                <a>Settings</a>
+                <a href="/Settings">Settings</a>
             </div>
         </nav>
     )
