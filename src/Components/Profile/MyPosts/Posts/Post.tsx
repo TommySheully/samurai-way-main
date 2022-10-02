@@ -1,7 +1,7 @@
 import React from 'react';
 import cssProfile from "./Posts.module.css"
 
-type post = {
+export type post = {
     message: string;
     likesCount: number;
 }

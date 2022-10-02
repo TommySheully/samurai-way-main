@@ -4,23 +4,25 @@ import {NavLink} from "react-router-dom";
 import {v1} from 'uuid';
 import {Message} from "./Messages/Messages";
 import {DialogsItem} from "./Dialogs/DialogsItem";
+import {AppType} from "../../App";
 
 
-function Dialogs(props: any) {
-    let dialogsData = [
-        {name: 'Dimych', id: v1()},
-        {name: 'Pasha', id: v1()},
-        {name: 'Masha', id: v1()}
-    ]
+function Dialogs(props: AppType) {
+    /*    let dialogsData = [
+            {name: 'Dimych', id: v1()},
+            {name: 'Pasha', id: v1()},
+            {name: 'Masha', id: v1()}
+        ]
 
-    let messageData = [
-        {message: 'Hi Dimych', id: v1(), likesCount: 12},
-        {message: 'Hi Pasha', id: v1(), likesCount: 11},
-        {message: 'Sry Masha', id: v1(), likesCount: 10}
-    ]
+        let messageData = [
+            {message: 'Hi Dimych', id: v1(), likesCount: 12},
+            {message: 'Hi Pasha', id: v1(), likesCount: 11},
+            {message: 'Sry Masha', id: v1(), likesCount: 10}
+        ]*/
 
-    let dialogsElements = dialogsData.map((D) => <DialogsItem name={D.name} id={D.id}/>)
-    let MessageElements = messageData.map((M) => <Message message={M.message} id={M.id} likesCount={M.likesCount}/>)
+    let dialogsElements = props.dialogs.map((D) => <DialogsItem name={D.name} id={D.id}/>)
+    let MessageElements = props.message.map((M) => <Message message={M.message} id={M.id}
+                                                            likesCount={M.likesCount}/>)
 
     return (
         <div className={s.Dialogs}>

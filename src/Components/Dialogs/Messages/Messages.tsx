@@ -1,7 +1,7 @@
 import React from 'react';
 import s from './../Dialogs.module.css'
 
-type Message = {
+export type Message = {
     message: string;
     id: string;
     likesCount: number;
