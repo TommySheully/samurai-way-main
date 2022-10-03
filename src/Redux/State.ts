@@ -1,5 +1,9 @@
 import {v1} from "uuid";
 
+export type AppType = {
+    state: StateType
+}
+
 export type StateType = {
     profilePage: postsArrayType,
     dialogPage: dialogPage,

@@ -7,14 +7,9 @@ import {BrowserRouter, Route, Routes} from "react-router-dom";
 import Music from "./Components/Music/Music";
 import Setting from "./Components/Setting/Setting";
 import News from "./Components/News/News";
-
-
 import Profile from "./Components/Profile/Profile";
-import {StateType} from "./Redux/State";
+import {AppType} from './Redux/State';
 
-type AppType = {
-    state: StateType
-}
 
 function App(props: AppType) {
 
