@@ -2,20 +2,18 @@ import React from 'react';
 import './App.css';
 import Header from "./Components/Header/Header";
 import NavBar from "./Components/NavBar/NavBar";
-import Profile, {postsArrayType} from "./Components/Profile/Profile";
 import Dialogs from "./Components/Dialogs/Dialogs";
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import Music from "./Components/Music/Music";
 import Setting from "./Components/Setting/Setting";
 import News from "./Components/News/News";
-import {Message} from "./Components/Dialogs/Messages/Messages";
-import {DialogsItem} from "./Components/Dialogs/Dialogs/DialogsItem";
-import {post} from "./Components/Profile/MyPosts/Posts/Post";
 
-export type AppType = {
-    posts: Array<post>,
-    dialogs: Array<DialogsItem>,
-    message: Array<Message>
+
+import Profile from "./Components/Profile/Profile";
+import {StateType} from "./Redux/State";
+
+type AppType = {
+    state: StateType
 }
 
 function App(props: AppType) {
@@ -27,10 +25,10 @@ function App(props: AppType) {
                 <NavBar/>
                 <div className="App-wrapper-content">
                     <Routes>
-                        <Route path='/Profile' element={<Profile posts={props.posts}/>}/>
+                        <Route path='/Profile' element={<Profile posts={props.state.profilePage.posts}/>}/>
                         <Route path='/Dialogs'
-                               element={<Dialogs posts={props.posts} dialogs={props.dialogs}
-                                                 message={props.message}/>}/>
+                               element={<Dialogs dialogsData={props.state.dialogPage.dialogsData}
+                                                 messageData={props.state.dialogPage.messageData}/>}/>
                         <Route path='/News' element={<News/>}/>
                         <Route path='/Music' element={<Music/>}/>
                         <Route path='/Settings' element={<Setting/>}/>

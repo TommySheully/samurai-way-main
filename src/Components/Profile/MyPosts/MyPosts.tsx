@@ -1,15 +1,9 @@
 import React from 'react';
 import Post from "./Posts/Post";
 import css from './MyPosts.module.css'
-import {postsArrayType} from "../Profile";
+import {postsArrayType} from "../../../Redux/State";
 
 const MyPosts = (props: postsArrayType) => {
-    /*    let posts = [
-            {message: 'IT-incubator', likesCount: 12},
-            {message: 'Hi, how are you?', likesCount: 24},
-            {message: 'ITshechka', likesCount: 1},
-            {message: 'My first post', likesCount: 100}
-        ]*/
 
     let postsElement = props.posts.map((P) => <Post likesCount={P.likesCount} message={P.message}/>)
 
