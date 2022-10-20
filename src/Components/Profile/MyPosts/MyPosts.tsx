@@ -7,6 +7,11 @@ const MyPosts = (props: postsArrayType) => {
 
     let postsElement = props.posts.map((P) => <Post likesCount={P.likesCount} message={P.message}/>)
 
+
+    const addPostCollback = () => {
+
+    }
+
     return (
         <div className={css.postsBlock}>
             <h3>My Posts</h3>
@@ -15,7 +20,8 @@ const MyPosts = (props: postsArrayType) => {
                     <textarea></textarea>
                 </div>
                 <div>
-                    <button>Add post</button>
+                    <button onClick={addPostCollback}>Add post
+                    </button>
                 </div>
             </div>
             <div className={css.Posts}>

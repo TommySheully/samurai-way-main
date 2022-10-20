@@ -13,6 +13,7 @@ import {AppType} from './Redux/State';
 
 function App(props: AppType) {
 
+
     return (
         <BrowserRouter>
             <div className="App-wrapper">
