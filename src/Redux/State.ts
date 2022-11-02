@@ -1,7 +1,39 @@
 import {v1} from "uuid";
+import {useState} from "react";
+import {rerenderEntireTree} from "../render";
+
+let store = {
+    _State: {
+        profilePage: {
+            posts: [
+                {message: 'IT-incubator', likesCount: 12},
+                {message: 'Hi, how are you?', likesCount: 24},
+                {message: 'ITshechka', likesCount: 1},
+                {message: 'My first post', likesCount: 100}
+            ]
+        },
+        dialogPage: {
+            dialogsData: [
+                {name: 'Dimych', id: v1()},
+                {name: 'Pasha', id: v1()},
+                {name: 'Masha', id: v1()}
+            ],
+            messageData: [
+                {message: 'Hi Dimych', id: v1(), likesCount: 12},
+                {message: 'Hi Pasha', id: v1(), likesCount: 11},
+                {message: 'Sry Masha', id: v1(), likesCount: 10}
+            ],
+        }
+
+    },
+    rerenderEntireTree() {
+        console.log('State change')
+    }
+}
 
 export type AppType = {
     state: StateType
+    addPost: (newPostTitle: string) => void
 }
 
 export type StateType = {
@@ -21,6 +53,7 @@ export type postsArrayType = {
 export type post = {
     message: string;
     likesCount: number;
+    id: string;
 }
 
 export type DialogsItem = {
@@ -33,14 +66,14 @@ export type Message = {
     id: string;
     likesCount: number;
 }
-
+/*let State: StateType = {}*/
 let State: StateType = {
     profilePage: {
         posts: [
-            {message: 'IT-incubator', likesCount: 12},
-            {message: 'Hi, how are you?', likesCount: 24},
-            {message: 'ITshechka', likesCount: 1},
-            {message: 'My first post', likesCount: 100}
+            {id: v1(), message: 'IT-incubator', likesCount: 12},
+            {id: v1(), message: 'Hi, how are you?', likesCount: 24},
+            {id: v1(), message: 'ITshechka', likesCount: 1},
+            {id: v1(), message: 'My first post', likesCount: 100}
         ]
     },
     dialogPage: {
@@ -55,6 +88,16 @@ let State: StateType = {
             {message: 'Sry Masha', id: v1(), likesCount: 10}
         ],
     }
+}
+
+export const addPost = (newPostTitle: string) => {
+    let newPost = {
+        id: v1(),
+        message: newPostTitle,
+        likesCount: 0
+    }
+    State.profilePage.posts.push(newPost)
+    rerenderEntireTree(State);
 }
 
 export default State;

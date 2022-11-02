@@ -1,23 +1,33 @@
-import React from 'react';
+import React, {ChangeEvent, MouseEventHandler, useState} from 'react';
 import Post from "./Posts/Post";
 import css from './MyPosts.module.css'
 import {postsArrayType} from "../../../Redux/State";
+import {postsType} from "../Profile";
 
-const MyPosts = (props: postsArrayType) => {
 
-    let postsElement = props.posts.map((P) => <Post likesCount={P.likesCount} message={P.message}/>)
+const MyPosts = (props: postsType) => {
+
+    let postsElement = props.posts.map((P) => <Post likesCount={P.likesCount} message={P.message} id={P.id}/>)
 
 
     const addPostCollback = () => {
-
+        props.addPost(title)
     }
+
+    let [title, setTitle] = useState('')
+
+    const textareaCallback = (e: ChangeEvent<HTMLTextAreaElement>) => {
+        setTitle(e.currentTarget.value)
+// props.addPost()
+    }
+
 
     return (
         <div className={css.postsBlock}>
             <h3>My Posts</h3>
             <div>
                 <div>
-                    <textarea></textarea>
+                    <textarea value={title} onChange={textareaCallback}></textarea>
                 </div>
                 <div>
                     <button onClick={addPostCollback}>Add post
