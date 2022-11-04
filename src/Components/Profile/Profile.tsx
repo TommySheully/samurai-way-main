@@ -7,7 +7,9 @@ import {post, postsArrayType} from "../../Redux/State";
 
 export type postsType = {
     posts: Array<post>
-    addPost: (newPostTitle: string) => void
+    addPost: (newPostTitle: string | undefined) => void
+    newPostText: string,
+    changeNewPost: (newPostTitle: string) => void
 }
 
 const Profile = (props: postsType) => {
@@ -16,7 +18,10 @@ const Profile = (props: postsType) => {
     return (
         <div>
             <ProfileInfo/>
-            <MyPosts posts={props.posts} addPost={props.addPost}/>
+            <MyPosts posts={props.posts}
+                     addPost={props.addPost}
+                     newPostText={props.newPostText}
+                     changeNewPost={props.changeNewPost}/>
         </div>
     )
 };

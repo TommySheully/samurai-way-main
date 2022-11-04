@@ -10,24 +10,29 @@ const MyPosts = (props: postsType) => {
     let postsElement = props.posts.map((P) => <Post likesCount={P.likesCount} message={P.message} id={P.id}/>)
 
 
-    const addPostCollback = () => {
-        props.addPost(title)
-    }
-
-    let [title, setTitle] = useState('')
-
     const textareaCallback = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        setTitle(e.currentTarget.value)
-// props.addPost()
+        let newPostText = e.currentTarget.value
+        props.changeNewPost(newPostText)
     }
 
+    let newPostElement = React.createRef<HTMLTextAreaElement>();
+
+    const addPostCollback = () => {
+        let newPostTitle = newPostElement.current?.value;
+        props.addPost(newPostTitle)
+        props.changeNewPost("")
+    }
 
     return (
         <div className={css.postsBlock}>
             <h3>My Posts</h3>
             <div>
                 <div>
-                    <textarea value={title} onChange={textareaCallback}></textarea>
+                    <textarea
+                        value={props.newPostText}
+                        onChange={textareaCallback}
+                        ref={newPostElement}/>
+
                 </div>
                 <div>
                     <button onClick={addPostCollback}>Add post

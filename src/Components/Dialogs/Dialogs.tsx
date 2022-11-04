@@ -1,26 +1,41 @@
-import React, {useState} from 'react';
+import React, {ChangeEvent, useState} from 'react';
 import s from './Dialogs.module.css'
 
 import {Message} from "./Messages/Messages";
-import {DialogsItem} from "./Dialogs/DialogsItem";
-import {dialogPage} from "../../Redux/State";
+import {DialogsItemComponents} from "./Dialogs/DialogsItem";
+
 import {v1} from "uuid";
+import {DialogsItem} from "../../Redux/State";
+
+type dialogPage = {
+    dialogsData: Array<DialogsItem>,
+    messageData: Array<Message>,
+    newMessageText: string,
+    addMessage: (newMessageTitle: string | undefined) => void,
+    changeNewMessage: (newMessageTitle: string) => void
+}
 
 
 function Dialogs(props: dialogPage) {
 
     let [messageArray, setMessageArray] = useState(props.messageData)
 
-    let dialogsElements = props.dialogsData.map((D) => <DialogsItem name={D.name} id={D.id}/>)
+    let dialogsElements = props.dialogsData.map((D) => <DialogsItemComponents name={D.name} id={D.id}/>)
     let MessageElements = messageArray.map((M) => <Message message={M.message} id={M.id}
                                                            likesCount={M.likesCount}/>)
 
-    let [title, setTitle] = useState("")
 
     const addNewMessage = () => {
-        let newMessage = {message: title, id: v1(), likesCount: 0}
-        setMessageArray([...messageArray, newMessage])
+        props.addMessage(newMessageElement.current?.value)
+        props.changeNewMessage("")
     }
+
+    const updateNewMessage = (e: ChangeEvent<HTMLInputElement>) => {
+        let updateNewMessageText = e.currentTarget.value;
+        props.changeNewMessage(updateNewMessageText)
+    }
+
+    let newMessageElement = React.createRef<HTMLInputElement>();
 
     return (
         <div className={s.Dialogs}>
@@ -30,9 +45,9 @@ function Dialogs(props: dialogPage) {
             </div>
             <div className={s.Messages}>
                 {MessageElements}
-                <input value={title} onChange={(event) => {
-                    setTitle(event.currentTarget.value)
-                }}></input>
+                <input value={props.newMessageText}
+                       onChange={updateNewMessage}
+                       ref={newMessageElement}></input>
                 <button onClick={addNewMessage}>+</button>
             </div>
         </div>

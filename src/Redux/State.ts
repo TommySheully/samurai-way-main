@@ -1,5 +1,4 @@
 import {v1} from "uuid";
-import {useState} from "react";
 import {rerenderEntireTree} from "../render";
 
 let store = {
@@ -33,7 +32,11 @@ let store = {
 
 export type AppType = {
     state: StateType
-    addPost: (newPostTitle: string) => void
+    addPost: (newPostTitle: string | undefined) => void
+    changeNewPost: (newPostTitle: string) => void
+    changeNewMessage: (newMessageTitle: string) => void
+    addMessage: (newMessageTitle: string | undefined) => void
+
 }
 
 export type StateType = {
@@ -43,11 +46,13 @@ export type StateType = {
 
 export type dialogPage = {
     dialogsData: Array<DialogsItem>,
-    messageData: Array<Message>
+    messageData: Array<Message>,
+    newMessageText: string,
 }
 
 export type postsArrayType = {
-    posts: Array<post>
+    posts: Array<post>,
+    newPostText: string,
 }
 
 export type post = {
@@ -74,7 +79,8 @@ let State: StateType = {
             {id: v1(), message: 'Hi, how are you?', likesCount: 24},
             {id: v1(), message: 'ITshechka', likesCount: 1},
             {id: v1(), message: 'My first post', likesCount: 100}
-        ]
+        ],
+        newPostText: "",
     },
     dialogPage: {
         dialogsData: [
@@ -85,18 +91,41 @@ let State: StateType = {
         messageData: [
             {message: 'Hi Dimych', id: v1(), likesCount: 12},
             {message: 'Hi Pasha', id: v1(), likesCount: 11},
-            {message: 'Sry Masha', id: v1(), likesCount: 10}
+            {message: 'Sry Masha', id: v1(), likesCount: 10},
         ],
+        newMessageText: "",
     }
 }
 
-export const addPost = (newPostTitle: string) => {
+export const addPost = (newPostTitle: string | undefined) => {
     let newPost = {
         id: v1(),
-        message: newPostTitle,
+        message: (newPostTitle != undefined ? newPostTitle : '-----'),
         likesCount: 0
     }
     State.profilePage.posts.push(newPost)
+    rerenderEntireTree(State);
+}
+
+export const changeNewPost = (newPostTitle: string) => {
+    let newPostText = newPostTitle
+    State.profilePage.newPostText = newPostText;
+    rerenderEntireTree(State);
+}
+
+export const addMessage = (newMessageTitle: string | undefined) => {
+    let newMessage = {
+        message: (newMessageTitle != undefined ? newMessageTitle : 'Вы не ввели сообщение'),
+        id: v1(),
+        likesCount: 0
+    }
+    State.dialogPage.messageData.push(newMessage)
+    rerenderEntireTree(State);
+}
+
+export const changeNewMessage = (newMessageTitle: string) => {
+    let newMessage = newMessageTitle
+    State.dialogPage.newMessageText = newMessage;
     rerenderEntireTree(State);
 }
 

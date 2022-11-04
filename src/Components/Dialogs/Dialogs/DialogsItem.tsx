@@ -7,7 +7,7 @@ type DialogsItem = {
     id: string;
 }
 
-export const DialogsItem = (props: DialogsItem) => {
+export const DialogsItemComponents = (props: DialogsItem) => {
     let path = "/Dialogs/" + props.id;
     return (
         <div className={s.Dialogs}>
