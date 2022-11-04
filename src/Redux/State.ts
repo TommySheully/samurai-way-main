@@ -1,5 +1,4 @@
 import {v1} from "uuid";
-import {rerenderEntireTree} from "../render";
 
 let store = {
     _State: {
@@ -25,17 +24,14 @@ let store = {
         }
 
     },
-    rerenderEntireTree() {
-        console.log('State change')
-    }
 }
 
 export type AppType = {
     state: StateType
-    addPost: (newPostTitle: string | undefined) => void
+    addPost: (newPostTitle: string) => void
     changeNewPost: (newPostTitle: string) => void
     changeNewMessage: (newMessageTitle: string) => void
-    addMessage: (newMessageTitle: string | undefined) => void
+    addMessage: (newMessageTitle: string) => void
 
 }
 
@@ -71,8 +67,12 @@ export type Message = {
     id: string;
     likesCount: number;
 }
-/*let State: StateType = {}*/
-let State: StateType = {
+
+let rerenderEntireTree = (props: StateType) => {
+}
+
+
+export let State: StateType = {
     profilePage: {
         posts: [
             {id: v1(), message: 'IT-incubator', likesCount: 12},
@@ -97,10 +97,10 @@ let State: StateType = {
     }
 }
 
-export const addPost = (newPostTitle: string | undefined) => {
+export const addPost = (newPostTitle: string) => {
     let newPost = {
         id: v1(),
-        message: (newPostTitle != undefined ? newPostTitle : '-----'),
+        message: (newPostTitle),
         likesCount: 0
     }
     State.profilePage.posts.push(newPost)
@@ -113,20 +113,25 @@ export const changeNewPost = (newPostTitle: string) => {
     rerenderEntireTree(State);
 }
 
-export const addMessage = (newMessageTitle: string | undefined) => {
+export const addMessage = (newMessageTitle: string) => {
     let newMessage = {
-        message: (newMessageTitle != undefined ? newMessageTitle : 'Вы не ввели сообщение'),
+        message: (newMessageTitle),
         id: v1(),
         likesCount: 0
     }
     State.dialogPage.messageData.push(newMessage)
     rerenderEntireTree(State);
+    console.log(State)
 }
 
 export const changeNewMessage = (newMessageTitle: string) => {
     let newMessage = newMessageTitle
     State.dialogPage.newMessageText = newMessage;
     rerenderEntireTree(State);
+}
+
+export let subscriber = (observer: (props: StateType) => void) => {
+    rerenderEntireTree = observer
 }
 
 export default State;

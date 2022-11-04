@@ -7,7 +7,7 @@ import {post, postsArrayType} from "../../Redux/State";
 
 export type postsType = {
     posts: Array<post>
-    addPost: (newPostTitle: string | undefined) => void
+    addPost: (newPostTitle: string) => void
     newPostText: string,
     changeNewPost: (newPostTitle: string) => void
 }

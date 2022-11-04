@@ -1,17 +1,14 @@
 import React, {ChangeEvent, useState} from 'react';
 import s from './Dialogs.module.css'
-
 import {Message} from "./Messages/Messages";
 import {DialogsItemComponents} from "./Dialogs/DialogsItem";
-
-import {v1} from "uuid";
 import {DialogsItem} from "../../Redux/State";
 
 type dialogPage = {
     dialogsData: Array<DialogsItem>,
     messageData: Array<Message>,
     newMessageText: string,
-    addMessage: (newMessageTitle: string | undefined) => void,
+    addMessage: (newMessageTitle: string) => void,
     changeNewMessage: (newMessageTitle: string) => void
 }
 
@@ -26,7 +23,9 @@ function Dialogs(props: dialogPage) {
 
 
     const addNewMessage = () => {
-        props.addMessage(newMessageElement.current?.value)
+        if (newMessageElement.current) {
+            props.addMessage(newMessageElement.current.value)
+        }
         props.changeNewMessage("")
     }
 

@@ -18,8 +18,10 @@ const MyPosts = (props: postsType) => {
     let newPostElement = React.createRef<HTMLTextAreaElement>();
 
     const addPostCollback = () => {
-        let newPostTitle = newPostElement.current?.value;
-        props.addPost(newPostTitle)
+        if (newPostElement.current) {
+            let newPostTitle = newPostElement.current.value;
+            props.addPost(newPostTitle)
+        }
         props.changeNewPost("")
     }
 
