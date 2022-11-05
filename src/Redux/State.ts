@@ -1,38 +1,15 @@
 import {v1} from "uuid";
 
-let store = {
-    _State: {
-        profilePage: {
-            posts: [
-                {message: 'IT-incubator', likesCount: 12},
-                {message: 'Hi, how are you?', likesCount: 24},
-                {message: 'ITshechka', likesCount: 1},
-                {message: 'My first post', likesCount: 100}
-            ]
-        },
-        dialogPage: {
-            dialogsData: [
-                {name: 'Dimych', id: v1()},
-                {name: 'Pasha', id: v1()},
-                {name: 'Masha', id: v1()}
-            ],
-            messageData: [
-                {message: 'Hi Dimych', id: v1(), likesCount: 12},
-                {message: 'Hi Pasha', id: v1(), likesCount: 11},
-                {message: 'Sry Masha', id: v1(), likesCount: 10}
-            ],
-        }
 
-    },
-}
-
-export type AppType = {
-    state: StateType
+export type storeType = {
+    _State: StateType
     addPost: (newPostTitle: string) => void
     changeNewPost: (newPostTitle: string) => void
     changeNewMessage: (newMessageTitle: string) => void
     addMessage: (newMessageTitle: string) => void
-
+    subscriber: (observer: (props: StateType) => void) => void
+    _rerenderEntireTree: (props: StateType) => void
+    getState: () => StateType
 }
 
 export type StateType = {
@@ -68,70 +45,70 @@ export type Message = {
     likesCount: number;
 }
 
-let rerenderEntireTree = (props: StateType) => {
-}
 
-
-export let State: StateType = {
-    profilePage: {
-        posts: [
-            {id: v1(), message: 'IT-incubator', likesCount: 12},
-            {id: v1(), message: 'Hi, how are you?', likesCount: 24},
-            {id: v1(), message: 'ITshechka', likesCount: 1},
-            {id: v1(), message: 'My first post', likesCount: 100}
-        ],
-        newPostText: "",
+let store: storeType = {
+    _State: {
+        profilePage: {
+            posts: [
+                {id: v1(), message: 'IT-incubator', likesCount: 12},
+                {id: v1(), message: 'Hi, how are you?', likesCount: 24},
+                {id: v1(), message: 'ITshechka', likesCount: 1},
+                {id: v1(), message: 'My first post', likesCount: 100}
+            ],
+            newPostText: "",
+        },
+        dialogPage: {
+            dialogsData: [
+                {name: 'Dimych', id: v1()},
+                {name: 'Pasha', id: v1()},
+                {name: 'Masha', id: v1()}
+            ],
+            messageData: [
+                {message: 'Hi Dimych', id: v1(), likesCount: 12},
+                {message: 'Hi Pasha', id: v1(), likesCount: 11},
+                {message: 'Sry Masha', id: v1(), likesCount: 10},
+            ],
+            newMessageText: "",
+        }
     },
-    dialogPage: {
-        dialogsData: [
-            {name: 'Dimych', id: v1()},
-            {name: 'Pasha', id: v1()},
-            {name: 'Masha', id: v1()}
-        ],
-        messageData: [
-            {message: 'Hi Dimych', id: v1(), likesCount: 12},
-            {message: 'Hi Pasha', id: v1(), likesCount: 11},
-            {message: 'Sry Masha', id: v1(), likesCount: 10},
-        ],
-        newMessageText: "",
+    getState() {
+        return store._State
+    },
+    _rerenderEntireTree(props: StateType) {
+    },
+    addPost(newPostTitle: string) {
+        let newPost = {
+            id: v1(),
+            message: (newPostTitle),
+            likesCount: 0
+        }
+        this._State.profilePage.posts.push(newPost)
+        this._rerenderEntireTree(this._State);
+    },
+    changeNewPost(newPostTitle: string) {
+        let newPostText = newPostTitle
+        this._State.profilePage.newPostText = newPostText;
+        this._rerenderEntireTree(this._State);
+    },
+    addMessage(newMessageTitle: string) {
+        let newMessage = {
+            message: (newMessageTitle),
+            id: v1(),
+            likesCount: 0
+        }
+        this._State.dialogPage.messageData.push(newMessage)
+        this._rerenderEntireTree(this._State);
+        console.log(newMessage)
+    },
+    changeNewMessage(newMessageTitle: string) {
+        let newMessage = newMessageTitle
+        this._State.dialogPage.newMessageText = newMessage;
+        this._rerenderEntireTree(this._State);
+    },
+    subscriber(observer: (props: StateType) => void) {
+        this._rerenderEntireTree = observer
     }
 }
 
-export const addPost = (newPostTitle: string) => {
-    let newPost = {
-        id: v1(),
-        message: (newPostTitle),
-        likesCount: 0
-    }
-    State.profilePage.posts.push(newPost)
-    rerenderEntireTree(State);
-}
-
-export const changeNewPost = (newPostTitle: string) => {
-    let newPostText = newPostTitle
-    State.profilePage.newPostText = newPostText;
-    rerenderEntireTree(State);
-}
-
-export const addMessage = (newMessageTitle: string) => {
-    let newMessage = {
-        message: (newMessageTitle),
-        id: v1(),
-        likesCount: 0
-    }
-    State.dialogPage.messageData.push(newMessage)
-    rerenderEntireTree(State);
-    console.log(State)
-}
-
-export const changeNewMessage = (newMessageTitle: string) => {
-    let newMessage = newMessageTitle
-    State.dialogPage.newMessageText = newMessage;
-    rerenderEntireTree(State);
-}
-
-export let subscriber = (observer: (props: StateType) => void) => {
-    rerenderEntireTree = observer
-}
-
-export default State;
+export default store;
+// window.store = store; нужно вернуться
