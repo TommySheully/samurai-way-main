@@ -3,6 +3,7 @@ import s from './Dialogs.module.css'
 import {Message} from "./Messages/Messages";
 import {DialogsItemComponents} from "./Dialogs/DialogsItem";
 import {ActionsType, DialogsItem} from "../../Redux/State";
+import {actionAddMessage, actionUpDateMessage} from "../../Redux/reducer/dialogsDataReduser";
 
 type dialogPage = {
     dialogsData: Array<DialogsItem>,
@@ -23,14 +24,15 @@ function Dialogs(props: dialogPage) {
 
     const addNewMessage = () => {
         if (newMessageElement.current) {
-            props.dispatch({type: 'ADD-MESSAGE'})
+
+            props.dispatch(actionAddMessage())
         }
 //        props.changeNewMessage("") должны это сделать уже в стейте
     }
 
     const updateNewMessage = (e: ChangeEvent<HTMLInputElement>) => {
         let updateNewMessageText = e.currentTarget.value;
-        props.dispatch({type: 'UPDATE-MESSAGE', newMessageTitle: updateNewMessageText})
+        props.dispatch(actionUpDateMessage(updateNewMessageText))
     }
 
     let newMessageElement = React.createRef<HTMLInputElement>();

@@ -2,6 +2,7 @@ import React, {ChangeEvent, MouseEventHandler, useState} from 'react';
 import Post from "./Posts/Post";
 import css from './MyPosts.module.css'
 import {postsType} from "../Profile";
+import {AddPostObj, upDatePostObj} from "../../../Redux/reducer/ProfileDataReduser";
 
 
 const MyPosts = (props: postsType) => {
@@ -11,14 +12,15 @@ const MyPosts = (props: postsType) => {
 
     const textareaCallback = (e: ChangeEvent<HTMLTextAreaElement>) => {
         let newPostTitle = e.currentTarget.value
-        props.dispatch({type: 'UPDATE-POST', newPostTitle: newPostTitle})
+        props.dispatch(upDatePostObj(newPostTitle))
     }
 
     let newPostElement = React.createRef<HTMLTextAreaElement>();
 
     const addPostCollback = () => {
+
         if (newPostElement.current) {
-            props.dispatch({type: 'ADD-POST'})
+            props.dispatch(AddPostObj())
         }
     }
 

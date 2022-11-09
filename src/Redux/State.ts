@@ -1,5 +1,6 @@
 import {v1} from "uuid";
-
+import dialogsDataReducer, {actionAddMessage, actionUpDateMessage} from "./reducer/dialogsDataReduser";
+import profilePageReducer, {AddPostObj, upDatePostObj} from "./reducer/ProfileDataReduser";
 
 export type storeType = {
     _State: StateType
@@ -11,21 +12,10 @@ export type storeType = {
 
 export type ActionsType = actionAddPost | actionUpDatePost | actionAddMessage | actionUpDateMessage
 
-export type actionAddPost = {
-    type: 'ADD-POST'
-}
-export type actionUpDatePost = {
-    type: 'UPDATE-POST'
-    newPostTitle: string
-}
-
-export type actionAddMessage = {
-    type: 'ADD-MESSAGE'
-}
-export type actionUpDateMessage = {
-    type: 'UPDATE-MESSAGE'
-    newMessageTitle: string
-}
+export type actionAddPost = ReturnType<typeof AddPostObj>
+export type actionUpDatePost = ReturnType<typeof upDatePostObj>
+export type actionAddMessage = ReturnType<typeof actionAddMessage>
+export type actionUpDateMessage = ReturnType<typeof actionUpDateMessage>
 
 
 export type StateType = {
@@ -92,43 +82,13 @@ let store: storeType = {
     _rerenderEntireTree(props: StateType) {
     },
     dispatch(action) {
-        if (action.type === 'ADD-POST') {
-            let newPost = {
-                id: v1(),
-                message: (this._State.profilePage.newPostText),
-                likesCount: 0
-            }
-            this._State.profilePage.posts.push(newPost)
-            this._State.profilePage.newPostText = '';
-            this._rerenderEntireTree(this._State);
-        } else if (action.type === 'UPDATE-POST') {
-            let newPostText = action.newPostTitle;
-            this._State.profilePage.newPostText = newPostText;
-            this._rerenderEntireTree(this._State);
-            console.log(this._State.profilePage.newPostText)
-        } else if (action.type === 'ADD-MESSAGE') {
-            let newMessage = {
-                message: (this._State.dialogPage.newMessageText),
-                id: v1(),
-                likesCount: 0
-            }
-            this._State.dialogPage.messageData.push(newMessage)
-            this._State.dialogPage.newMessageText = ''
-            this._rerenderEntireTree(this._State);
-        } else if (action.type === 'UPDATE-MESSAGE') {
-            let newMessage = action.newMessageTitle
-            this._State.dialogPage.newMessageText = newMessage;
-            this._rerenderEntireTree(this._State);
-            console.log(this._State.dialogPage.newMessageText)
-        }
+        dialogsDataReducer(this._State.dialogPage, action)
+        profilePageReducer(this._State.profilePage, action)
+        this._rerenderEntireTree(this._State);
     },
-    subscriber(observer
-                   :
-                   (props: StateType) => void
-    ) {
-        this._rerenderEntireTree = observer
+    subscriber(observer: (props: StateType) => void) {
+        this._rerenderEntireTree = observer;
     }
 }
 
 export default store;
-// window.store = store; нужно вернуться
