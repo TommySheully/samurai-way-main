@@ -12,10 +12,11 @@ import {StateType} from './Redux/State';
 
 type AppType = {
     state: StateType
-    addPost: (newPostTitle: string) => void
-    changeNewPost: (newPostTitle: string) => void
-    addMessage: (newMessageTitle: string) => void
-    changeNewMessage: (newMessageTitle: string) => void
+    dispatch: (action: any) => void
+    /*    addPost: (newPostTitle: string) => void
+        changeNewPost: (newPostTitle: string) => void
+        addMessage: (newMessageTitle: string) => void
+        changeNewMessage: (newMessageTitle: string) => void*/
 }
 
 function App(props: AppType) {
@@ -29,14 +30,14 @@ function App(props: AppType) {
                 <div className="App-wrapper-content">
                     <Routes>
                         <Route path='/Profile'
-                               element={<Profile posts={props.state.profilePage.posts} addPost={props.addPost}
+                               element={<Profile posts={props.state.profilePage.posts}
+                                                 dispatch={props.dispatch}
                                                  newPostText={props.state.profilePage.newPostText}
-                                                 changeNewPost={props.changeNewPost}/>}/>
+                               />}/>
                         <Route path='/Dialogs'
                                element={<Dialogs dialogsData={props.state.dialogPage.dialogsData}
                                                  messageData={props.state.dialogPage.messageData}
-                                                 addMessage={props.addMessage}
-                                                 changeNewMessage={props.changeNewMessage}
+                                                 dispatch={props.dispatch}
                                                  newMessageText={props.state.dialogPage.newMessageText}
                                />}/>
                         <Route path='/News' element={<News/>}/>

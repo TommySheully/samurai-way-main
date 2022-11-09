@@ -7,9 +7,8 @@ import {post, postsArrayType} from "../../Redux/State";
 
 export type postsType = {
     posts: Array<post>
-    addPost: (newPostTitle: string) => void
     newPostText: string,
-    changeNewPost: (newPostTitle: string) => void
+    dispatch: (action: any) => void
 }
 
 const Profile = (props: postsType) => {
@@ -19,9 +18,8 @@ const Profile = (props: postsType) => {
         <div>
             <ProfileInfo/>
             <MyPosts posts={props.posts}
-                     addPost={props.addPost}
                      newPostText={props.newPostText}
-                     changeNewPost={props.changeNewPost}/>
+                     dispatch={props.dispatch}/>
         </div>
     )
 };

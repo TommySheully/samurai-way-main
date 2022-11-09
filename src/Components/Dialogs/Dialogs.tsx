@@ -8,8 +8,7 @@ type dialogPage = {
     dialogsData: Array<DialogsItem>,
     messageData: Array<Message>,
     newMessageText: string,
-    addMessage: (newMessageTitle: string) => void,
-    changeNewMessage: (newMessageTitle: string) => void
+    dispatch: (action: any) => void
 }
 
 
@@ -24,14 +23,14 @@ function Dialogs(props: dialogPage) {
 
     const addNewMessage = () => {
         if (newMessageElement.current) {
-            props.addMessage(newMessageElement.current.value)
+            props.dispatch({type: 'ADD-MESSAGE', newMessageTitle: newMessageElement.current.value})
         }
-        props.changeNewMessage("")
+//        props.changeNewMessage("") должны это сделать уже в стейте
     }
 
     const updateNewMessage = (e: ChangeEvent<HTMLInputElement>) => {
         let updateNewMessageText = e.currentTarget.value;
-        props.changeNewMessage(updateNewMessageText)
+        props.dispatch({type: 'UPDATE-MESSAGE', newMessageTitle: updateNewMessageText})
     }
 
     let newMessageElement = React.createRef<HTMLInputElement>();

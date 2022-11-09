@@ -11,18 +11,16 @@ const MyPosts = (props: postsType) => {
 
 
     const textareaCallback = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        let newPostText = e.currentTarget.value
-        props.changeNewPost(newPostText)
+        let newPostTitle = e.currentTarget.value
+        props.dispatch({type: 'UPDATE-POST', newPostTitle: newPostTitle})
     }
 
     let newPostElement = React.createRef<HTMLTextAreaElement>();
 
     const addPostCollback = () => {
         if (newPostElement.current) {
-            let newPostTitle = newPostElement.current.value;
-            props.addPost(newPostTitle)
+            props.dispatch({type: 'ADD-POST'})
         }
-        props.changeNewPost("")
     }
 
     return (
