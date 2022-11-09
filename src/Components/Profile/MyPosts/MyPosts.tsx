@@ -1,7 +1,6 @@
 import React, {ChangeEvent, MouseEventHandler, useState} from 'react';
 import Post from "./Posts/Post";
 import css from './MyPosts.module.css'
-import {postsArrayType} from "../../../Redux/State";
 import {postsType} from "../Profile";
 
 

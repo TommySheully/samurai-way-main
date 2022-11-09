@@ -2,13 +2,13 @@ import React from 'react';
 import cssProfile from "./Profile.module.css"
 import MyPosts from "./MyPosts/MyPosts";
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
-import {post, postsArrayType} from "../../Redux/State";
+import {ActionsType, post} from "../../Redux/State";
 
 
 export type postsType = {
     posts: Array<post>
     newPostText: string,
-    dispatch: (action: any) => void
+    dispatch: (action: ActionsType) => void
 }
 
 const Profile = (props: postsType) => {

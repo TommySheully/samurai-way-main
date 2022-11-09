@@ -8,15 +8,11 @@ import Music from "./Components/Music/Music";
 import Setting from "./Components/Setting/Setting";
 import News from "./Components/News/News";
 import Profile from "./Components/Profile/Profile";
-import {StateType} from './Redux/State';
+import {ActionsType, StateType} from './Redux/State';
 
 type AppType = {
     state: StateType
-    dispatch: (action: any) => void
-    /*    addPost: (newPostTitle: string) => void
-        changeNewPost: (newPostTitle: string) => void
-        addMessage: (newMessageTitle: string) => void
-        changeNewMessage: (newMessageTitle: string) => void*/
+    dispatch: (action: ActionsType) => void
 }
 
 function App(props: AppType) {

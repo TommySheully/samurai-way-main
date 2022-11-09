@@ -6,8 +6,27 @@ export type storeType = {
     subscriber: (observer: (props: StateType) => void) => void
     _rerenderEntireTree: (props: StateType) => void
     getState: () => StateType
-    dispatch: (action: any) => void
+    dispatch: (action: ActionsType) => void
 }
+
+export type ActionsType = actionAddPost | actionUpDatePost | actionAddMessage | actionUpDateMessage
+
+export type actionAddPost = {
+    type: 'ADD-POST'
+}
+export type actionUpDatePost = {
+    type: 'UPDATE-POST'
+    newPostTitle: string
+}
+
+export type actionAddMessage = {
+    type: 'ADD-MESSAGE'
+}
+export type actionUpDateMessage = {
+    type: 'UPDATE-MESSAGE'
+    newMessageTitle: string
+}
+
 
 export type StateType = {
     profilePage: postsArrayType,

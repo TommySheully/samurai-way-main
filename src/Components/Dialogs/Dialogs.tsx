@@ -2,13 +2,13 @@ import React, {ChangeEvent, useState} from 'react';
 import s from './Dialogs.module.css'
 import {Message} from "./Messages/Messages";
 import {DialogsItemComponents} from "./Dialogs/DialogsItem";
-import {DialogsItem} from "../../Redux/State";
+import {ActionsType, DialogsItem} from "../../Redux/State";
 
 type dialogPage = {
     dialogsData: Array<DialogsItem>,
     messageData: Array<Message>,
     newMessageText: string,
-    dispatch: (action: any) => void
+    dispatch: (action: ActionsType) => void
 }
 
 
@@ -23,7 +23,7 @@ function Dialogs(props: dialogPage) {
 
     const addNewMessage = () => {
         if (newMessageElement.current) {
-            props.dispatch({type: 'ADD-MESSAGE', newMessageTitle: newMessageElement.current.value})
+            props.dispatch({type: 'ADD-MESSAGE'})
         }
 //        props.changeNewMessage("") должны это сделать уже в стейте
     }
