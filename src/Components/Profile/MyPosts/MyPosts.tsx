@@ -1,26 +1,30 @@
-import React, {ChangeEvent, MouseEventHandler, useState} from 'react';
+import React, {ChangeEvent} from 'react';
 import Post from "./Posts/Post";
 import css from './MyPosts.module.css'
-import {postsType} from "../Profile";
-import {AddPostObj, upDatePostObj} from "../../../Redux/reducer/ProfileDataReduser";
+import {ActionsType, post} from "../../../Redux/store";
 
+export type MyPostsType = {
+    posts: Array<post>
+    newPostText: string
+    onChangePost: (newPostTitle: string) => void
+    addPostCollback: () => void
+}
 
-const MyPosts = (props: postsType) => {
+const MyPosts = (props: MyPostsType) => {
 
     let postsElement = props.posts.map((P) => <Post likesCount={P.likesCount} message={P.message} id={P.id}/>)
 
 
-    const textareaCallback = (e: ChangeEvent<HTMLTextAreaElement>) => {
+    const onChangePostHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
         let newPostTitle = e.currentTarget.value
-        props.dispatch(upDatePostObj(newPostTitle))
+        props.onChangePost(newPostTitle)
     }
 
     let newPostElement = React.createRef<HTMLTextAreaElement>();
 
     const addPostCollback = () => {
-
         if (newPostElement.current) {
-            props.dispatch(AddPostObj())
+            props.addPostCollback();
         }
     }
 
@@ -31,7 +35,7 @@ const MyPosts = (props: postsType) => {
                 <div>
                     <textarea
                         value={props.newPostText}
-                        onChange={textareaCallback}
+                        onChange={onChangePostHandler}
                         ref={newPostElement}/>
 
                 </div>

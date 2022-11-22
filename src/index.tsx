@@ -2,7 +2,6 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
-import {dialogPage, postsArrayType, StateType} from "./Redux/store"
 import store, {AppType} from "./Redux/redux-store"
 
 // type StateType = {state: dialogPage | postsArrayType}

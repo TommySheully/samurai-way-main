@@ -1,7 +1,6 @@
 import {combineReducers, createStore} from "redux";
 import profilePageReducer from "./reducer/ProfileDataReduser";
 import dialogsDataReducer from "./reducer/dialogsDataReduser";
-import {postsArrayType} from "./store";
 
 
 type RootReducerType = typeof reducers;

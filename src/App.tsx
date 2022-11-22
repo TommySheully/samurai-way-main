@@ -12,6 +12,7 @@ import {ActionsType, StateType} from './Redux/store';
 import {initialDialogsDataStateType} from "./Redux/reducer/dialogsDataReduser";
 import {initialprofilePageStateType} from "./Redux/reducer/ProfileDataReduser";
 import {AppType} from "./Redux/redux-store";
+import DialogsContainer from "./Components/Dialogs/DialogsContainer";
 
 type AppLocalType = {
     state: AppType
@@ -34,10 +35,10 @@ function App(props: AppLocalType) {
                                                  newPostText={props.state.profilePage.newPostText}
                                />}/>
                         <Route path='/Dialogs'
-                               element={<Dialogs dialogsData={props.state.dialogPage.dialogsData}
-                                                 messageData={props.state.dialogPage.messageData}
-                                                 dispatch={props.dispatch}
-                                                 newMessageText={props.state.dialogPage.newMessageText}
+                               element={<DialogsContainer dialogsData={props.state.dialogPage.dialogsData}
+                                                          messageData={props.state.dialogPage.messageData}
+                                                          dispatch={props.dispatch}
+                                                          newMessageText={props.state.dialogPage.newMessageText}
                                />}/>
                         <Route path='/News' element={<News/>}/>
                         <Route path='/Music' element={<Music/>}/>
