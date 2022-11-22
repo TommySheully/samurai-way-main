@@ -1,6 +1,6 @@
 import React from 'react';
 import cssProfile from "./Posts.module.css"
-import {post} from "../../../../Redux/State";
+import {post} from "../../../../Redux/store";
 
 const Post = (props: post) => {
     return (

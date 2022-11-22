@@ -4,7 +4,7 @@ import profilePageReducer, {AddPostObj, upDatePostObj} from "./reducer/ProfileDa
 
 export type storeType = {
     _State: StateType
-    subscriber: (observer: (props: StateType) => void) => void
+    subscribe: (observer: (props: StateType) => void) => void
     _rerenderEntireTree: (props: StateType) => void
     getState: () => StateType
     dispatch: (action: ActionsType) => void
@@ -51,7 +51,7 @@ export type Message = {
     likesCount: number;
 }
 
-let store: storeType = {
+/*let store: storeType = {
     _State: {
         profilePage: {
             posts: [
@@ -86,9 +86,9 @@ let store: storeType = {
         profilePageReducer(this._State.profilePage, action)
         this._rerenderEntireTree(this._State);
     },
-    subscriber(observer: (props: StateType) => void) {
+    subscribe(observer: (props: StateType) => void) {
         this._rerenderEntireTree = observer;
     }
 }
 
-export default store;
+export default store;*/

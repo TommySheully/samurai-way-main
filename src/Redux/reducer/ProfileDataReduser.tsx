@@ -1,23 +1,38 @@
 import React from 'react';
 import {v1} from "uuid";
-import {ActionsType, dialogPage, postsArrayType} from "../State";
+import {ActionsType, dialogPage, postsArrayType} from "../store";
 
 const ADD_POST = 'ADD-POST';
 const UPDATE_POST = 'UPDATE-POST';
 
-const profilePageReducer = (state: postsArrayType, action: ActionsType) => {
+let initialState = {
+    posts: [
+        {id: v1(), message: 'IT-incubator', likesCount: 12},
+        {id: v1(), message: 'Hi, how are you?', likesCount: 24},
+        {id: v1(), message: 'ITshechka', likesCount: 1},
+        {id: v1(), message: 'My first post', likesCount: 100}
+    ],
+    newPostText: "",
+}
 
-    if (action.type === ADD_POST) {
-        let newPost = {
-            id: v1(),
-            message: (state.newPostText),
-            likesCount: 0
-        }
-        state.posts.push(newPost)
-        state.newPostText = '';
-    } else if (action.type === UPDATE_POST) {
-        let newPostText = action.newPostTitle;
-        state.newPostText = newPostText;
+export type initialprofilePageStateType = typeof initialState;
+
+const profilePageReducer = (state: initialprofilePageStateType = initialState, action: ActionsType) => {
+
+    switch (action.type) {
+        case ADD_POST:
+            let newPost = {
+                id: v1(),
+                message: (state.newPostText),
+                likesCount: 0
+            }
+            state.posts.push(newPost)
+            state.newPostText = '';
+            break;
+        case UPDATE_POST:
+            let newPostText = action.newPostTitle;
+            state.newPostText = newPostText;
+            break;
     }
     return state
 };

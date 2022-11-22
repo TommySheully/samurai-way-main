@@ -8,15 +8,18 @@ import Music from "./Components/Music/Music";
 import Setting from "./Components/Setting/Setting";
 import News from "./Components/News/News";
 import Profile from "./Components/Profile/Profile";
-import {ActionsType, StateType} from './Redux/State';
+import {ActionsType, StateType} from './Redux/store';
+import {initialDialogsDataStateType} from "./Redux/reducer/dialogsDataReduser";
+import {initialprofilePageStateType} from "./Redux/reducer/ProfileDataReduser";
+import {AppType} from "./Redux/redux-store";
 
-type AppType = {
-    state: StateType
+type AppLocalType = {
+    state: AppType
     dispatch: (action: ActionsType) => void
 }
 
-function App(props: AppType) {
 
+function App(props: AppLocalType) {
 
     return (
         <BrowserRouter>
@@ -26,7 +29,7 @@ function App(props: AppType) {
                 <div className="App-wrapper-content">
                     <Routes>
                         <Route path='/Profile'
-                               element={<Profile posts={props.state.profilePage.posts}
+                               element={<Profile posts={props.state.profilePage.posts} // props.state.dialogPage.posts
                                                  dispatch={props.dispatch}
                                                  newPostText={props.state.profilePage.newPostText}
                                />}/>

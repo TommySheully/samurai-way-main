@@ -1,27 +1,45 @@
 import React from 'react';
 import {v1} from "uuid";
-import {ActionsType, dialogPage} from "../State";
+import {ActionsType, dialogPage} from "../store";
 
 const ADD_MESSAGE = 'ADD-MESSAGE';
 const UPDATE_MESSAGE = 'UPDATE-MESSAGE';
 
-const dialogsDataReducer = (state: dialogPage, action: ActionsType) => {
+let initialState = {
+    dialogsData: [
+        {name: 'Dimych', id: v1()},
+        {name: 'Pasha', id: v1()},
+        {name: 'Masha', id: v1()}
+    ],
+    messageData: [
+        {message: 'Hi Dimych', id: v1(), likesCount: 12},
+        {message: 'Hi Pasha', id: v1(), likesCount: 11},
+        {message: 'Sry Masha', id: v1(), likesCount: 10},
+    ],
+    newMessageText: "",
+}
 
-    if (action.type === ADD_MESSAGE) {
-        let newMessage = {
-            message: (state.newMessageText),
-            id: v1(),
-            likesCount: 0
-        }
-        state.messageData.push(newMessage)
-        state.newMessageText = ''
+export type initialDialogsDataStateType = typeof initialState;
 
-    } else if (action.type === UPDATE_MESSAGE) {
-        let newMessage = action.newMessageTitle
-        state.newMessageText = newMessage;
+const dialogsDataReducer = (state: initialDialogsDataStateType = initialState, action: ActionsType) => {
+
+    switch (action.type) {
+        case ADD_MESSAGE:
+            state.messageData.push({
+                message: (state.newMessageText),
+                id: v1(),
+                likesCount: 0
+            })
+            state.newMessageText = ''
+            break;
+        case UPDATE_MESSAGE:
+            let newMessage = action.newMessageTitle
+            state.newMessageText = newMessage;
+            break;
     }
     return state;
 };
+
 
 export const actionAddMessage = () => ({type: 'ADD-MESSAGE'} as const);
 export const actionUpDateMessage = (updateNewMessageText: string) => ({
