@@ -1,23 +1,28 @@
 import React from 'react';
-import {postsType} from "../Profile";
 import {AddPostObj, upDatePostObj} from "../../../Redux/reducer/ProfileDataReduser";
 import MyPosts from "./MyPosts";
+import MyContext from "../../../StoreContext";
 
 
-const MyPostsContainer = (props: postsType) => {
+const MyPostsContainer = () => {
 
-    const onChangePost = (newPostTitle: string) => {
-        props.dispatch(upDatePostObj(newPostTitle))
-    }
+    return (<MyContext.Consumer>
+            {(store) => {
+                const onChangePost = (newPostTitle: string) => {
+                    store.dispatch(upDatePostObj(newPostTitle))
+                }
 
-    const addPostCollback = () => {
-        props.dispatch(AddPostObj())
-    }
+                const addPostCollback = () => {
+                    store.dispatch(AddPostObj())
+                }
 
-    return <MyPosts posts={props.posts}
-                    newPostText={props.newPostText}
-                    onChangePost={onChangePost}
-                    addPostCollback={addPostCollback}/>
+                return <MyPosts posts={store.getState().profilePage.posts}
+                                newPostText={store.getState().profilePage.newPostText}
+                                onChangePost={onChangePost}
+                                addPostCollback={addPostCollback}/>
+            }}
+        </MyContext.Consumer>
+    )
 };
 
 export default MyPostsContainer;

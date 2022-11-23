@@ -2,15 +2,12 @@ import React from 'react';
 import './App.css';
 import Header from "./Components/Header/Header";
 import NavBar from "./Components/NavBar/NavBar";
-import Dialogs from "./Components/Dialogs/Dialogs";
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import Music from "./Components/Music/Music";
 import Setting from "./Components/Setting/Setting";
 import News from "./Components/News/News";
 import Profile from "./Components/Profile/Profile";
-import {ActionsType, StateType} from './Redux/store';
-import {initialDialogsDataStateType} from "./Redux/reducer/dialogsDataReduser";
-import {initialprofilePageStateType} from "./Redux/reducer/ProfileDataReduser";
+import {ActionsType} from './Redux/store';
 import {AppType} from "./Redux/redux-store";
 import DialogsContainer from "./Components/Dialogs/DialogsContainer";
 
