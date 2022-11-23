@@ -2,20 +2,21 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
-import store, {AppType} from "./Redux/redux-store"
-import MyContext from "./StoreContext";
+import store from "./Redux/redux-store"
+import {Provider} from "react-redux";
 
 // type StateType = {state: dialogPage | postsArrayType}
 
-let rerenderEntireTree = (props: AppType) => {              // StateType заменил на AppType
+let rerenderEntireTree = () => {              //props:AppStateType, вообще удалил yf 45уроке &    44 урок StateType заменил на AppStateType
     ReactDOM.render(
-        <MyContext.Provider value={store}>
-            <App state={store.getState()} dispatch={store.dispatch.bind(store)}/>,
-        </MyContext.Provider>,
+        <Provider store={store}>
+            {/*            <App state={store.getState()} dispatch={store.dispatch.bind(store)}/>,*/}
+            <App/>,
+        </Provider>,
         document.getElementById('root')
     );
 }
 
-rerenderEntireTree(store.getState());
+rerenderEntireTree();
 
-store.subscribe(() => rerenderEntireTree(store.getState()));
+store.subscribe(() => rerenderEntireTree());
