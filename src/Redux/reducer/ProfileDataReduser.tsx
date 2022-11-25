@@ -7,27 +7,32 @@ const UPDATE_POST = 'UPDATE-POST';
 
 let initialState = {
     posts: [
-        {id: v1(), message: 'IT-incubator', likesCount: 12},
-        {id: v1(), message: 'Hi, how are you?', likesCount: 24},
-        {id: v1(), message: 'ITshechka', likesCount: 1},
-        {id: v1(), message: 'My first post', likesCount: 100}
+        {id: v1(), message: 'IT-incubator', likesCount: 12, time: new Date().toLocaleTimeString()},
+        {id: v1(), message: 'Hi, how are you?', likesCount: 24, time: new Date().toLocaleTimeString()},
+        {id: v1(), message: 'ITshechka', likesCount: 1, time: new Date().toLocaleTimeString()},
+        {id: v1(), message: 'My first post', likesCount: 100, time: new Date().toLocaleTimeString()}
     ],
     newPostText: "",
 }
 
 export type initialprofilePageStateType = typeof initialState;
+export type timeNowType = typeof timeNow;
+
+let timeNow = new Date().toLocaleTimeString()
 
 const profilePageReducer = (state: initialprofilePageStateType = initialState, action: ActionsType) => {
 
     switch (action.type) {
         case ADD_POST: {
+
             let newPost = {
                 id: v1(),
                 message: (state.newPostText),
-                likesCount: 0
+                likesCount: 0,
+                time: timeNow
             }
             let stateCopy = {...state}
-            stateCopy.posts = [...state.posts, newPost]
+            stateCopy.posts = [newPost, ...state.posts]
             stateCopy.newPostText = '';
             return stateCopy
         }

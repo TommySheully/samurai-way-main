@@ -12,7 +12,8 @@ export type MyPostsType = {
 
 const MyPosts = (props: MyPostsType) => {
 
-    let postsElement = props.posts.map((P) => <Post likesCount={P.likesCount} message={P.message} id={P.id}/>)
+    let postsElement = props.posts.map((P) => <Post time={P.time} likesCount={P.likesCount} message={P.message}
+                                                    id={P.id}/>)
 
 
     const onChangePostHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {

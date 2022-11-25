@@ -1,6 +1,6 @@
 import {v1} from "uuid";
 import dialogsDataReducer, {actionAddMessage, actionUpDateMessage} from "./reducer/dialogsDataReduser";
-import profilePageReducer, {AddPostObj, upDatePostObj} from "./reducer/ProfileDataReduser";
+import profilePageReducer, {AddPostObj, timeNowType, upDatePostObj} from "./reducer/ProfileDataReduser";
 
 /*export type storeType = {
     _State: StateType
@@ -38,6 +38,7 @@ export type post = {
     message: string;
     likesCount: number;
     id: string;
+    time: string
 }
 
 export type DialogsItem = {

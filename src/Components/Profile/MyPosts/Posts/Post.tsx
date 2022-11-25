@@ -9,7 +9,9 @@ const Post = (props: post) => {
                 <img src='https://cdn.kanobu.ru/articles/pics/7e6dc974-43f4-4ad0-9a55-2465566e9662.jpg'
                      alt="imgProfile"/>
                 {props.message}
+
             </div>
+            <>{props.time}</>
             <div>Like {props.likesCount}</div>
         </div>
     )
