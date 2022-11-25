@@ -1,6 +1,6 @@
 import React from 'react';
 import {v1} from "uuid";
-import {ActionsType, dialogPage, postsArrayType} from "../store";
+import {ActionsType} from "../redux-store";
 
 const ADD_POST = 'ADD-POST';
 const UPDATE_POST = 'UPDATE-POST';
@@ -27,14 +27,12 @@ const profilePageReducer = (state: initialprofilePageStateType = initialState, a
                 likesCount: 0
             }
             let stateCopy = {...state}
-            stateCopy.posts = [...state.posts]
-            stateCopy.posts.push(newPost)
+            stateCopy.posts = [...state.posts, newPost]
             stateCopy.newPostText = '';
             return stateCopy
         }
         case UPDATE_POST: {
-            let stateCopy = {...state}
-            stateCopy.newPostText = action.newPostTitle;
+            let stateCopy = {...state, newPostText: action.newPostTitle}
             return stateCopy
         }
     }

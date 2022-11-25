@@ -3,7 +3,8 @@ import {AddPostObj, upDatePostObj} from "../../../Redux/reducer/ProfileDataRedus
 import MyPosts from "./MyPosts";
 import {AppStateType} from "../../../Redux/redux-store";
 import {connect} from "react-redux";
-import {ActionsType, post} from "../../../Redux/store";
+import {ActionsType} from "../../../Redux/redux-store";
+import {post} from "../../../Redux/store";
 import {Dispatch} from "redux";
 
 type mapStateToProps = {

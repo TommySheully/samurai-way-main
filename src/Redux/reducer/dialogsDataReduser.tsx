@@ -1,6 +1,6 @@
 import React from 'react';
 import {v1} from "uuid";
-import {ActionsType} from "../store";
+import {ActionsType} from "../redux-store";
 
 const ADD_MESSAGE = 'ADD-MESSAGE';
 const UPDATE_MESSAGE = 'UPDATE-MESSAGE';
@@ -32,14 +32,11 @@ const dialogsDataReducer = (state: initialDialogsDataStateType = initialState, a
             }
             let stateCopy = {...state}
             stateCopy.messageData = [...state.messageData, NewMessage]
-            console.log(stateCopy)
-            // stateCopy.messageData.push(NewMessage)
             stateCopy.newMessageText = ''
             return stateCopy
         }
         case UPDATE_MESSAGE: {
-            let stateCopy = {...state}
-            stateCopy.newMessageText = action.newMessageTitle;
+            let stateCopy = {...state, newMessageText: action.newMessageTitle}
             return stateCopy
         }
     }

@@ -2,20 +2,20 @@ import {v1} from "uuid";
 import dialogsDataReducer, {actionAddMessage, actionUpDateMessage} from "./reducer/dialogsDataReduser";
 import profilePageReducer, {AddPostObj, upDatePostObj} from "./reducer/ProfileDataReduser";
 
-export type storeType = {
+/*export type storeType = {
     _State: StateType
     subscribe: (observer: (props: StateType) => void) => void
     _rerenderEntireTree: (props: StateType) => void
     getState: () => StateType
     dispatch: (action: ActionsType) => void
-}
+}*/
 
-export type ActionsType = actionAddPost | actionUpDatePost | actionAddMessage | actionUpDateMessage
+/*export type ActionsType = actionAddPost | actionUpDatePost | actionAddMessage | actionUpDateMessage
 
 export type actionAddPost = ReturnType<typeof AddPostObj>
 export type actionUpDatePost = ReturnType<typeof upDatePostObj>
 export type actionAddMessage = ReturnType<typeof actionAddMessage>
-export type actionUpDateMessage = ReturnType<typeof actionUpDateMessage>
+export type actionUpDateMessage = ReturnType<typeof actionUpDateMessage>*/
 
 
 export type StateType = {

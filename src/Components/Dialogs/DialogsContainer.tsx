@@ -1,17 +1,16 @@
 import React from 'react';
-import {MessageType} from "./Messages/Messages";
-import {ActionsType, DialogsItem} from "../../Redux/store";
 import {actionAddMessage, actionUpDateMessage} from "../../Redux/reducer/dialogsDataReduser";
 import Dialogs from "./Dialogs";
 import {connect} from "react-redux";
-import {AppStateType} from "../../Redux/redux-store";
+import {ActionsType, AppStateType} from "../../Redux/redux-store";
 import {Dispatch} from "redux";
+import {DialogsItem, Message} from "../../Redux/store";
 
 
 export type mapStateToProps = {
     dialogsData: Array<DialogsItem>,
-    messageData: Array<MessageType>,
-    newMessageText: string,
+    messageData: Array<Message>,
+    newMessageText: string
 }
 
 export type mapDispatchToPropsType = {

@@ -7,9 +7,10 @@ import Music from "./Components/Music/Music";
 import Setting from "./Components/Setting/Setting";
 import News from "./Components/News/News";
 import Profile from "./Components/Profile/Profile";
-import {ActionsType} from './Redux/store';
+import {ActionsType} from './Redux/redux-store';
 import store, {AppStateType} from "./Redux/redux-store";
 import DialogsContainer from "./Components/Dialogs/DialogsContainer";
+import UsersContainer from "./Components/Users/UsersContainer";
 
 
 export type AppLocalType = {
@@ -36,11 +37,11 @@ function App() {
                                                  dispatch={dispatchLocal}
                                                  newPostText={stateLocal.profilePage.newPostText}
                                />}/>
-                        <Route path='/Dialogs'
-                               element={<DialogsContainer/>}/>
-                        <Route path='/News' element={<News/>}/>
-                        <Route path='/Music' element={<Music/>}/>
-                        <Route path='/Settings' element={<Setting/>}/>
+                        <Route path='/Dialogs' element={<DialogsContainer/>}/>
+                        <Route path='/News' element={<News/>}/> // нужно будет доделать контейнеры
+                        <Route path='/Users' element={<UsersContainer/>}/>
+                        <Route path='/Music' element={<Music/>}/> // нужно будет доделать контейнеры
+                        <Route path='/Settings' element={<Setting/>}/> // нужно будет доделать контейнеры
                     </Routes>
                 </div>
             </div>

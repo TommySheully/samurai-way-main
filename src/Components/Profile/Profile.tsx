@@ -1,6 +1,7 @@
 import React from 'react';
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
-import {ActionsType, post} from "../../Redux/store";
+import {post} from "../../Redux/store";
+import {ActionsType} from "../../Redux/redux-store";
 import MyPostsContainer from './MyPosts/MyPostsConteiner';
 
 
