@@ -1,10 +1,10 @@
 import React, {useState} from 'react';
 import s from './../Dialogs.module.css'
 
-export type Message = {
+export type MessageType = {
     message: string;
     id: string;
     likesCount: number;
 }
 
-export const Message = (props: Message) => <div className={s.Message}>{props.message} {props.likesCount}</div>;
+export const Message = (props: MessageType) => <div className={s.Message}>{props.message} {props.likesCount}</div>;

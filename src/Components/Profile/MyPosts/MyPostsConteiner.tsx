@@ -6,35 +6,12 @@ import {connect} from "react-redux";
 import {ActionsType, post} from "../../../Redux/store";
 import {Dispatch} from "redux";
 
-
-/*const MyPostsContainer = () => {
-
-    return (<MyContext.Consumer>
-            {(store: storeType) => {
-                const onChangePost = (newPostTitle: string) => {
-                    store.dispatch(upDatePostObj(newPostTitle))
-                }
-
-                const addPostCollback = () => {
-                    store.dispatch(AddPostObj())
-                }
-
-
-                return <MyPosts posts={store.getState().profilePage.posts}
-                                newPostText={store.getState().profilePage.newPostText}
-                                onChangePost={onChangePost}
-                                addPostCollback={addPostCollback}/>
-            }}
-        </MyContext.Consumer>
-    )
-};*/
-
-export type mapStateToProps = {
+type mapStateToProps = {
     posts: Array<post>
     newPostText: string
 }
 
-export type mapDispatchToPropsType = {
+type mapDispatchToPropsType = {
     onChangePost: (newPostTitle: string) => void
     addPostCollback: () => void
 }

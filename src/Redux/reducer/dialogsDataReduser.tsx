@@ -1,6 +1,6 @@
 import React from 'react';
 import {v1} from "uuid";
-import {ActionsType, dialogPage} from "../store";
+import {ActionsType} from "../store";
 
 const ADD_MESSAGE = 'ADD-MESSAGE';
 const UPDATE_MESSAGE = 'UPDATE-MESSAGE';
@@ -24,18 +24,24 @@ export type initialDialogsDataStateType = typeof initialState;
 const dialogsDataReducer = (state: initialDialogsDataStateType = initialState, action: ActionsType) => {
 
     switch (action.type) {
-        case ADD_MESSAGE:
-            state.messageData.push({
+        case ADD_MESSAGE: {
+            let NewMessage = {
                 message: (state.newMessageText),
                 id: v1(),
                 likesCount: 0
-            })
-            state.newMessageText = ''
-            break;
-        case UPDATE_MESSAGE:
-            let newMessage = action.newMessageTitle
-            state.newMessageText = newMessage;
-            break;
+            }
+            let stateCopy = {...state}
+            stateCopy.messageData = [...state.messageData, NewMessage]
+            console.log(stateCopy)
+            // stateCopy.messageData.push(NewMessage)
+            stateCopy.newMessageText = ''
+            return stateCopy
+        }
+        case UPDATE_MESSAGE: {
+            let stateCopy = {...state}
+            stateCopy.newMessageText = action.newMessageTitle;
+            return stateCopy
+        }
     }
     return state;
 };

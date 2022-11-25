@@ -1,12 +1,12 @@
-import React, {ChangeEvent, useState} from 'react';
+import React, {ChangeEvent} from 'react';
 import s from './Dialogs.module.css'
-import {Message} from "./Messages/Messages";
+import {Message, MessageType} from "./Messages/Messages";
 import {DialogsItemComponents} from "./Dialogs/DialogsItem";
 import {DialogsItem} from "../../Redux/store";
 
 type dialogPage = {
     dialogsData: Array<DialogsItem>,
-    messageData: Array<Message>,
+    messageData: Array<MessageType>,
     newMessageText: string,
     addNewMessage: () => void
     updateNewMessage: (updateNewMessageText: string) => void
@@ -15,11 +15,9 @@ type dialogPage = {
 
 function Dialogs(props: dialogPage) {
 
-    let [messageArray, setMessageArray] = useState(props.messageData)
-
     let dialogsElements = props.dialogsData.map((D) => <DialogsItemComponents name={D.name} id={D.id}/>)
-    let MessageElements = messageArray.map((M) => <Message message={M.message} id={M.id}
-                                                           likesCount={M.likesCount}/>)
+    let MessageElements = props.messageData.map((M) => <Message message={M.message} id={M.id}
+                                                                likesCount={M.likesCount}/>)
 
 
     const addNewMessage = () => {
