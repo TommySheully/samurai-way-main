@@ -11,40 +11,52 @@ export type userArrayType = userType[]
 export type userType = {
     id: string,
     followed: boolean,
-    fullName: string,
+    name: string,
     status: string,
-    location: { city: string, country: string }
+    photos: {
+        small: any,
+        large: any
+    }
 }
+
 
 let initialUserState = {
     users: [
         {
             id: v1(),
             followed: true,
-            fullName: 'IT-incubator',
+            name: 'IT-incubator',
             status: "Online",
-            location: {city: "Minsk", country: "Belarus"}
-        },
-        {id: v1(), followed: true, fullName: 'Dimych', status: "Online", location: {city: "Minsk", country: "Belarus"}},
-        {id: v1(), followed: true, fullName: 'NAME', status: "Online", location: {city: "Piter", country: "RU"}},
-        {
-            id: v1(),
-            followed: false,
-            fullName: 'Sasha',
-            status: "Offline",
-            location: {city: "Minsk", country: "Belarus"}
+            photos: {
+                small: "small",
+                large: "large"
+            }
         },
         {
             id: v1(),
             followed: false,
-            fullName: 'Pasha',
+            name: 'Sasha',
             status: "Offline",
-            location: {city: "Minsk", country: "Belarus"}
+            photos: {
+                small: "small",
+                large: "large"
+            }
+        },
+        {
+            id: v1(),
+            followed: false,
+            name: 'Pasha',
+            status: "Offline",
+            photos: {
+                small: "small",
+                large: "large"
+            }
         },
     ],
 }
 
-export type initialUserStateType = typeof initialUserState;
+export type initialUserStateType = { users: userArrayType }
+
 
 const usersReducer = (state: initialUserStateType = initialUserState, action: ActionsType) => {
 
@@ -64,7 +76,7 @@ const usersReducer = (state: initialUserStateType = initialUserState, action: Ac
             return stateCopy
         }
         case SET_USERS:
-            return {...state, users: [...state.users, ...action.users]}
+            return {...state, users: action.users}
     }
     return state
 };
