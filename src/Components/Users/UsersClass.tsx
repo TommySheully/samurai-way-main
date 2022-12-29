@@ -6,12 +6,18 @@ import {UsersPropsType} from "./UsersContainer";
 
 class UsersClass extends React.Component<UsersPropsType> {
 
-    getUsers = () => {
-        if (this.props.users.length) {
-            axios.get("https://social-network.samuraijs.com/api/1.0/users").then((response) => {
-                this.props.setUsers(response.data.items)
-            })
-        }
+    /*    getUsers = () => {
+            if (this.props.users.length) {
+                axios.get("https://social-network.samuraijs.com/api/1.0/users").then((response) => {
+                    this.props.setUsers(response.data.items)
+                })
+            }
+        }*/
+
+    componentDidMount() {
+        axios.get("https://social-network.samuraijs.com/api/1.0/users").then((response) => {
+            this.props.setUsers(response.data.items)
+        })
     }
 
     render() {
@@ -40,7 +46,7 @@ class UsersClass extends React.Component<UsersPropsType> {
                         </span>
                 </div>)
             }
-            <Button onClick={this.getUsers}>Show More</Button>
+            <Button>Show More</Button>
             <Button>Set Users from API</Button>
         </div>
     }
