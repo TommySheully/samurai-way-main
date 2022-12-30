@@ -1,39 +1,32 @@
 import React from 'react';
 import {Button} from "antd";
 import s from "./Users.module.css"
-import axios from "axios";
-import {UsersPropsType} from "./UsersContainer";
-import {updateCountAC} from "../../Redux/redux-store";
+import {userArrayType} from "../../Redux/reducer/usersReduser";
 
-class UsersClass extends React.Component<UsersPropsType> {
+type usersClassPropsType = {
+    users: userArrayType
+    pageSize: number,
+    totalUsersCount: number,
+    currentPage: number,
+    onPageChanged: (p: number) => void
+}
 
-    componentDidMount() {
+let UsersClass = (props: usersClassPropsType) => {
 
+    let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize);
+
+    let pages: number[] = [];
+    for (let i = 1; i <= pagesCount; i++) {
+        pages.push(i)
     }
 
-    onPageChanged = (p: number) => {
-        this.props.updateCount(p)
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${p}&count=${this.props.pageSize}`).then((response) => {
-            this.props.setUsers(response.data.items)
-            this.props.setTotalUsersCount(response.data.totalCount)
-        })
-    }
-
-    render() {
-        let pagesCount = Math.ceil(this.props.totalUsersCount / this.props.pageSize);
-
-        let pages: number[] = [];
-        for (let i = 1; i <= pagesCount; i++) {
-            pages.push(i)
-        }
-
-        return <div className={s.container}>
-            <div>
-                {pages.map(p => <span className={this.props.currentPage === p ? s.selectedPage : ""}
-                                      onClick={() => this.onPageChanged(p)}>{p}</span>)}
-            </div>
-            {
-                this.props.users.map(u => <div key={u.id}>
+    return <div className={s.container}>
+        <div>
+            {pages.map(p => <span className={props.currentPage === p ? s.selectedPage : ""}
+                                  onClick={() => props.onPageChanged(p)}>{p}</span>)}
+        </div>
+        {
+            props.users.map(u => <div key={u.id}>
                     <span className={s.userContainer}>
                     <div className={s.avaBody}>
                         <div className={s.ava}>
@@ -54,12 +47,11 @@ class UsersClass extends React.Component<UsersPropsType> {
                        </div>
                     </div>
                         </span>
-                </div>)
-            }
-            <Button>Show More</Button>
-            <Button>Set Users from API</Button>
-        </div>
-    }
+            </div>)
+        }
+        <Button>Show More</Button>
+        <Button>Set Users from API</Button>
+    </div>
 }
 
 

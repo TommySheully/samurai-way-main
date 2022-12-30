@@ -11,6 +11,7 @@ import {
 import {Dispatch} from "redux";
 import {connect} from "react-redux";
 import UsersClass from "./UsersClass";
+import UsersAPIComponent from "./UsersAPIComponent";
 
 
 type mapStateToPropsType = {
@@ -60,6 +61,6 @@ let mapDispatchToProps = (dispatch: Dispatch<ActionsType>) => {
     }
 }
 
-const UsersContainer = connect<mapStateToPropsType, mapDispatchToPropsType, {}, AppStateType>(mapStateToProps, mapDispatchToProps)(UsersClass);
+const UsersContainer = connect<mapStateToPropsType, mapDispatchToPropsType, {}, AppStateType>(mapStateToProps, mapDispatchToProps)(UsersAPIComponent);
 
 export default UsersContainer;
