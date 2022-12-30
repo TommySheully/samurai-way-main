@@ -5,6 +5,8 @@ import {ActionsType} from "../redux-store";
 const FOLLOW = 'FOLLOW';
 const UNFOLLOW = 'UNFOLLOW';
 const SET_USERS = 'SET-USERS';
+const UPDATE_COUNT = 'UPDATE-COUNT';
+const SET_TOTAL_USERS_COUNT = 'SET-TOTAL-USERS-COUNT';
 
 export type userArrayType = userType[]
 
@@ -53,9 +55,17 @@ let initialUserState = {
             }
         },
     ],
+    pageSize: 7,
+    totalUsersCount: 26,
+    currentPage: 1
 }
 
-export type initialUserStateType = { users: userArrayType }
+export type initialUserStateType = {
+    users: userArrayType,
+    pageSize: number,
+    totalUsersCount: number,
+    currentPage: number
+}
 
 
 const usersReducer = (state: initialUserStateType = initialUserState, action: ActionsType) => {
@@ -77,6 +87,10 @@ const usersReducer = (state: initialUserStateType = initialUserState, action: Ac
         }
         case SET_USERS:
             return {...state, users: action.users}
+        case UPDATE_COUNT:
+            return {...state, currentPage: action.newCurrentPage}
+        case SET_TOTAL_USERS_COUNT:
+            return {...state, totalUsersCount: action.totalUsersCount}
     }
     return state
 };
@@ -84,5 +98,13 @@ const usersReducer = (state: initialUserStateType = initialUserState, action: Ac
 export const follow = (userId: string) => ({type: 'FOLLOW', userId: userId} as const);
 export const unfollow = (userId: string) => ({type: 'UNFOLLOW', userId: userId} as const);
 export const setUsers = (users: userArrayType) => ({type: 'SET-USERS', users: users} as const);
+export const setTotalUsersCount = (totalCount: number) => ({
+    type: 'SET-TOTAL-USERS-COUNT',
+    totalUsersCount: totalCount
+} as const);
+export const updateCount = (newCurrentPage: number) => ({
+    type: 'UPDATE-COUNT',
+    newCurrentPage: newCurrentPage
+} as const);
 
 export default usersReducer;
