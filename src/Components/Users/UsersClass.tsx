@@ -32,7 +32,7 @@ let UsersClass = (props: usersClassPropsType) => {
                     <div className={s.avaBody}>
                         <div className={s.ava}>
                             <img
-                                src='https://cdn.kanobu.ru/articles/pics/7e6dc974-43f4-4ad0-9a55-2465566e9662.jpg'
+                                src={u.photos.small != null ? u.photos.small : 'https://cdn.kanobu.ru/articles/pics/7e6dc974-43f4-4ad0-9a55-2465566e9662.jpg'}
                                 alt="imgProfile"/></div>
                         <Button>Follow</Button>
                     </div>

@@ -44,7 +44,7 @@ let mapStateToProps = (state: AppStateType) => {
     }
 }
 
-let mapDispatchToProps = (dispatch: Dispatch<ActionsType>) => {
+/*let mapDispatchToProps = (dispatch: Dispatch<ActionsType>) => {
 
     return {
         follow: (userId: string) => {
@@ -66,8 +66,15 @@ let mapDispatchToProps = (dispatch: Dispatch<ActionsType>) => {
             dispatch(changeFetching(newFetching))
         }
     }
-}
+}*/
 
-const UsersContainer = connect<mapStateToPropsType, mapDispatchToPropsType, {}, AppStateType>(mapStateToProps, mapDispatchToProps)(UsersAPIComponent);
+const UsersContainer = connect<mapStateToPropsType, mapDispatchToPropsType, {}, AppStateType>(mapStateToProps, {
+    follow,
+    unfollow,
+    setUsers,
+    updateCount,
+    setTotalUsersCount,
+    changeFetching
+})(UsersAPIComponent);
 
 export default UsersContainer;
