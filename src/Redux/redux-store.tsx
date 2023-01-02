@@ -1,7 +1,14 @@
 import {combineReducers, createStore} from "redux";
 import dialogsDataReducer, {actionAddMessage, actionUpDateMessage} from "./reducer/dialogsDataReduser";
 import profilePageReducer, {AddPostObj, upDatePostObj} from "./reducer/ProfileDataReduser";
-import usersReducer, {follow, setTotalUsersCount, setUsers, unfollow, updateCount} from "./reducer/usersReduser";
+import usersReducer, {
+    changeFetching,
+    follow,
+    setTotalUsersCount,
+    setUsers,
+    unfollow,
+    updateCount
+} from "./reducer/usersReduser";
 
 export type ActionsType =
     actionAddPost
@@ -13,6 +20,7 @@ export type ActionsType =
     | setUsersAC
     | updateCountAC
     | setTotalUsersCountAC
+    | changeFetchingAC
 
 
 export type actionAddPost = ReturnType<typeof AddPostObj>
@@ -24,6 +32,7 @@ export type unfollowAC = ReturnType<typeof unfollow>
 export type setUsersAC = ReturnType<typeof setUsers>
 export type updateCountAC = ReturnType<typeof updateCount>
 export type setTotalUsersCountAC = ReturnType<typeof setTotalUsersCount>
+export type changeFetchingAC = ReturnType<typeof changeFetching>
 
 
 export type storeType = typeof store;

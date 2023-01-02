@@ -1,6 +1,7 @@
 import React from 'react';
 import {ActionsType, AppStateType, setTotalUsersCountAC} from "../../Redux/redux-store";
 import {
+    changeFetching,
     follow,
     setTotalUsersCount,
     setUsers,
@@ -18,7 +19,8 @@ type mapStateToPropsType = {
     users: userArrayType
     pageSize: number,
     totalUsersCount: number,
-    currentPage: number
+    currentPage: number,
+    isFetching: boolean
 }
 
 type mapDispatchToPropsType = {
@@ -27,6 +29,7 @@ type mapDispatchToPropsType = {
     setUsers: (users: userArrayType) => void
     updateCount: (newCurrentPage: number) => void
     setTotalUsersCount: (totalCount: number) => void
+    changeFetching: (newFetching: boolean) => void
 }
 
 export type UsersPropsType = mapDispatchToPropsType & mapStateToPropsType
@@ -36,7 +39,8 @@ let mapStateToProps = (state: AppStateType) => {
         users: state.usersPage.users,
         pageSize: state.usersPage.pageSize,
         totalUsersCount: state.usersPage.totalUsersCount,
-        currentPage: state.usersPage.currentPage
+        currentPage: state.usersPage.currentPage,
+        isFetching: state.usersPage.isFetching
     }
 }
 
@@ -57,6 +61,9 @@ let mapDispatchToProps = (dispatch: Dispatch<ActionsType>) => {
         },
         setTotalUsersCount: (totalCount: number) => {
             dispatch(setTotalUsersCount(totalCount))
+        },
+        changeFetching: (newFetching: boolean) => {
+            dispatch(changeFetching(newFetching))
         }
     }
 }

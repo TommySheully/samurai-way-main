@@ -16,14 +16,15 @@ let UsersClass = (props: usersClassPropsType) => {
     let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize);
 
     let pages: number[] = [];
-    for (let i = 1; i <= pagesCount; i++) {
+    for (let i = 1; i <= pagesCount; i++) { // тут заменил pagesCount на число 25 что бы не отображались пока что все страницы
         pages.push(i)
     }
 
     return <div className={s.container}>
         <div>
-            {pages.map(p => <span className={props.currentPage === p ? s.selectedPage : ""}
-                                  onClick={() => props.onPageChanged(p)}>{p}</span>)}
+            {pages.map(p => p >= (props.currentPage - 12) && p < (props.currentPage + 12)
+                ? (<span className={props.currentPage === p ? s.selectedPage : ""}
+                         onClick={() => props.onPageChanged(p)}>{p} </span>) : null)}
         </div>
         {
             props.users.map(u => <div key={u.id}>
