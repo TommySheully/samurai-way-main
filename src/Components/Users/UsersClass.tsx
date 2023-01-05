@@ -2,6 +2,7 @@ import React from 'react';
 import {Button} from "antd";
 import s from "./Users.module.css"
 import {userArrayType} from "../../Redux/reducer/usersReduser";
+import {NavLink} from "react-router-dom";
 
 type usersClassPropsType = {
     users: userArrayType
@@ -31,9 +32,12 @@ let UsersClass = (props: usersClassPropsType) => {
                     <span className={s.userContainer}>
                     <div className={s.avaBody}>
                         <div className={s.ava}>
-                            <img
-                                src={u.photos.small != null ? u.photos.small : 'https://cdn.kanobu.ru/articles/pics/7e6dc974-43f4-4ad0-9a55-2465566e9662.jpg'}
-                                alt="imgProfile"/></div>
+                            <NavLink to={'/profile/' + u.id}>
+                              <img
+                                  src={u.photos.small != null ? u.photos.small : 'https://cdn.kanobu.ru/articles/pics/7e6dc974-43f4-4ad0-9a55-2465566e9662.jpg'}
+                                  alt="imgProfile"/>
+                            </NavLink>
+                        </div>
                         <Button>Follow</Button>
                     </div>
                     <div className={s.bodyMessage}>

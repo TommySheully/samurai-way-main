@@ -11,6 +11,8 @@ import {ActionsType} from './Redux/redux-store';
 import store, {AppStateType} from "./Redux/redux-store";
 import DialogsContainer from "./Components/Dialogs/DialogsContainer";
 import UsersContainer from "./Components/Users/UsersContainer";
+import ProfileAPIContainer from "./Components/Profile/ProfileAPIContainer";
+import ProfileContainer from "./Components/Profile/ProfileContainer";
 
 
 export type AppLocalType = {
@@ -21,10 +23,6 @@ export type AppLocalType = {
 
 function App() {
 
-    let stateLocal = store.getState()
-    let dispatchLocal = store.dispatch
-
-
     return (
         <BrowserRouter>
             <div className="App-wrapper">
@@ -32,11 +30,14 @@ function App() {
                 <NavBar/>
                 <div className="App-wrapper-content">
                     <Routes>
-                        <Route path='/Profile'
-                               element={<Profile posts={stateLocal.profilePage.posts} // props.state.dialogPage.posts
-                                                 dispatch={dispatchLocal}
-                                                 newPostText={stateLocal.profilePage.newPostText}
-                               />}/>
+                        {/*                        <Route path='/Profile'
+                               element={<ProfileAPIContainer
+                                   posts={stateLocal.profilePage.posts} // props.state.dialogPage.posts
+                                   dispatch={dispatchLocal}
+                                   newPostText={stateLocal.profilePage.newPostText}
+                               />}/>*/}
+                        <Route path='/Profile/*'
+                               element={<ProfileContainer/>}/>
                         <Route path='/Dialogs' element={<DialogsContainer/>}/>
                         <Route path='/News' element={<News/>}/> // нужно будет доделать контейнеры
                         <Route path='/Users' element={<UsersContainer/>}/>

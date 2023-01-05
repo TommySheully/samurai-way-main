@@ -3,6 +3,7 @@ import axios from "axios";
 import {UsersPropsType} from "./UsersContainer";
 import UsersClass from "./UsersClass";
 import preorder from './giphy.gif'
+import Preloader from "../Preloader/Preloader";
 
 
 class UsersAPIComponent extends React.Component<UsersPropsType> {
@@ -25,7 +26,7 @@ class UsersAPIComponent extends React.Component<UsersPropsType> {
 
     render() {
         return <div>
-            {this.props.isFetching ? <img src={preorder} alt='loading'/> : null}
+            {this.props.isFetching ? <Preloader/> : null}
             <UsersClass
                 totalUsersCount={this.props.totalUsersCount}
                 pageSize={this.props.pageSize}
