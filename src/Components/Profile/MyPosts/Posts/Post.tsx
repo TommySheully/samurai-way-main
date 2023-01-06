@@ -4,15 +4,19 @@ import {post} from "../../../../Redux/store";
 
 const Post = (props: post) => {
     return (
-        <div>
+        <div className={cssProfile.parentsBlock}>
             <div className={cssProfile.item}>
-                <img src='https://cdn.kanobu.ru/articles/pics/7e6dc974-43f4-4ad0-9a55-2465566e9662.jpg'
-                     alt="imgProfile"/>
-                {props.message}
-
+                <div className={cssProfile.MessageBody}>
+                    <img className={cssProfile.ava}
+                         src='https://cdn.kanobu.ru/articles/pics/7e6dc974-43f4-4ad0-9a55-2465566e9662.jpg'
+                         alt="imgProfile"/>
+                    <div className={cssProfile.textMessage}>{props.message}</div>
+                </div>
+                <div className={cssProfile.dataBody}>
+                    <div>{props.time}</div>
+                    <div>Like {props.likesCount}</div>
+                </div>
             </div>
-            <>{props.time}</>
-            <div>Like {props.likesCount}</div>
         </div>
     )
 };

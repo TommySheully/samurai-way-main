@@ -1,10 +1,38 @@
+.parentsBlock {
+    padding: 5px;
+}
+
 .item {
     color: cornflowerblue;
     font-size: 40px;
+    padding: 5px;
+
+    border: 1px solid;
+    border-radius: 20px;
+
+    display: flex;
+    flex-direction: column;
+
 }
 
-.item img {
+.MessageBody {
+    display: flex;
+
+}
+
+.textMessage {
+    margin-left: 20px;
+}
+
+.ava {
     width: 80px;
     height: 80px;
     border-radius: 50px;
+}
+
+.dataBody {
+    display: flex;
+    justify-content: space-between;
+    font-size: large;
+    padding: 0 10px;
 }

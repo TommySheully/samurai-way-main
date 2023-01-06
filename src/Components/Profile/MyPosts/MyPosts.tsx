@@ -37,7 +37,6 @@ const MyPosts = (props: MyPostsType) => {
                         value={props.newPostText}
                         onChange={onChangePostHandler}
                         ref={newPostElement}/>
-
                 </div>
                 <div>
                     <button onClick={addPostCollback}>Add post
