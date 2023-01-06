@@ -6,8 +6,8 @@ import {post} from "../../../Redux/store";
 export type MyPostsType = {
     posts: Array<post>
     newPostText: string
-    onChangePost: (newPostTitle: string) => void
-    addPostCollback: () => void
+    upDatePostObj: (newPostTitle: string) => void
+    AddPostObj: () => void
 }
 
 const MyPosts = (props: MyPostsType) => {
@@ -15,17 +15,16 @@ const MyPosts = (props: MyPostsType) => {
     let postsElement = props.posts.map((P) => <Post time={P.time} likesCount={P.likesCount} message={P.message}
                                                     id={P.id}/>)
 
-
     const onChangePostHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
         let newPostTitle = e.currentTarget.value
-        props.onChangePost(newPostTitle)
+        props.upDatePostObj(newPostTitle)
     }
 
     let newPostElement = React.createRef<HTMLTextAreaElement>();
 
     const addPostCollback = () => {
         if (newPostElement.current) {
-            props.addPostCollback();
+            props.AddPostObj();
         }
     }
 
