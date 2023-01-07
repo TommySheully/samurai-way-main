@@ -6,12 +6,10 @@ import {BrowserRouter, Route, Routes} from "react-router-dom";
 import Music from "./Components/Music/Music";
 import Setting from "./Components/Setting/Setting";
 import News from "./Components/News/News";
-import Profile from "./Components/Profile/Profile";
 import {ActionsType} from './Redux/redux-store';
-import store, {AppStateType} from "./Redux/redux-store";
+import {AppStateType} from "./Redux/redux-store";
 import DialogsContainer from "./Components/Dialogs/DialogsContainer";
 import UsersContainer from "./Components/Users/UsersContainer";
-import ProfileAPIContainer from "./Components/Profile/ProfileAPIContainer";
 import ProfileContainer from "./Components/Profile/ProfileContainer";
 
 
@@ -30,14 +28,7 @@ function App() {
                 <NavBar/>
                 <div className="App-wrapper-content">
                     <Routes>
-                        {/*                        <Route path='/Profile'
-                               element={<ProfileAPIContainer
-                                   posts={stateLocal.profilePage.posts} // props.state.dialogPage.posts
-                                   dispatch={dispatchLocal}
-                                   newPostText={stateLocal.profilePage.newPostText}
-                               />}/>*/}
-                        <Route path='/Profile/*'
-                               element={<ProfileContainer/>}/>
+                        <Route path='/Profile/:userId' element={<ProfileContainer/>}/>
                         <Route path='/Dialogs' element={<DialogsContainer/>}/>
                         <Route path='/News' element={<News/>}/> // нужно будет доделать контейнеры
                         <Route path='/Users' element={<UsersContainer/>}/>

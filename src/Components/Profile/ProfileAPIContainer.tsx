@@ -2,15 +2,23 @@ import React from 'react';
 import Profile from "./Profile";
 import axios from "axios";
 import {ProfilePropsType} from "./ProfileContainer";
+import {useParams} from 'react-router-dom';
 
+export function withRouter(Children: any) {
+
+    return (props: any) => {
+
+        const match = {params: useParams()};
+        return <Children {...props} match={match}/>
+    }
+}
 
 class ProfileAPIContainer extends React.Component<ProfilePropsType> {
     componentDidMount() {
-        axios.get(`https://social-network.samuraijs.com/api/1.0/profile/2`).then((response) => {
+        axios.get(`https://social-network.samuraijs.com/api/1.0/profile/`).then((response) => {
             this.props.setUserProfile(response.data)
         })
     }
-
 
     render() {
         return (
@@ -21,4 +29,6 @@ class ProfileAPIContainer extends React.Component<ProfilePropsType> {
     }
 };
 
-export default ProfileAPIContainer;
+let ProfileContainerWithUrlData = withRouter(ProfileAPIContainer);
+
+export default ProfileContainerWithUrlData;
