@@ -4,7 +4,7 @@ import {
     changeFetching,
     follow,
     setTotalUsersCount,
-    setUsers,
+    setUsers, toggleIsFollowingFetching,
     unfollow,
     updateCount,
     userArrayType
@@ -18,7 +18,8 @@ type mapStateToPropsType = {
     pageSize: number,
     totalUsersCount: number,
     currentPage: number,
-    isFetching: boolean
+    isFetching: boolean,
+    followingIsProgress: string[]
 }
 
 type mapDispatchToPropsType = {
@@ -28,6 +29,7 @@ type mapDispatchToPropsType = {
     updateCount: (newCurrentPage: number) => void
     setTotalUsersCount: (totalCount: number) => void
     changeFetching: (newFetching: boolean) => void
+    toggleIsFollowingFetching: (followingIsProgressValue: boolean, id: string) => void
 }
 
 export type UsersPropsType = mapDispatchToPropsType & mapStateToPropsType
@@ -38,7 +40,8 @@ let mapStateToProps = (state: AppStateType) => {
         pageSize: state.usersPage.pageSize,
         totalUsersCount: state.usersPage.totalUsersCount,
         currentPage: state.usersPage.currentPage,
-        isFetching: state.usersPage.isFetching
+        isFetching: state.usersPage.isFetching,
+        followingIsProgress: state.usersPage.followingIsProgress
     }
 }
 
@@ -48,7 +51,8 @@ const UsersContainer = connect<mapStateToPropsType, mapDispatchToPropsType, {}, 
     setUsers,
     updateCount,
     setTotalUsersCount,
-    changeFetching
+    changeFetching,
+    toggleIsFollowingFetching
 })(UsersAPIComponent);
 
 export default UsersContainer;

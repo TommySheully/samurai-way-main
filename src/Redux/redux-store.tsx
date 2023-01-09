@@ -6,7 +6,7 @@ import usersReducer, {
     changeFetching,
     follow,
     setTotalUsersCount,
-    setUsers,
+    setUsers, toggleIsFollowingFetching,
     unfollow,
     updateCount
 } from "./reducer/usersReduser";
@@ -24,6 +24,7 @@ export type ActionsType =
     | changeFetchingAC
     | setUserProfileAC
     | setUserDataAC
+    | toggleIsFollowingFetchingAC
 
 
 export type actionAddPost = ReturnType<typeof AddPostObj>
@@ -38,6 +39,7 @@ export type setTotalUsersCountAC = ReturnType<typeof setTotalUsersCount>
 export type changeFetchingAC = ReturnType<typeof changeFetching>
 export type setUserProfileAC = ReturnType<typeof setUserProfile>
 export type setUserDataAC = ReturnType<typeof setUserData>
+export type toggleIsFollowingFetchingAC = ReturnType<typeof toggleIsFollowingFetching>
 
 
 export type storeType = typeof store;

@@ -2,7 +2,7 @@ import React from 'react';
 import {UsersPropsType} from "./UsersContainer";
 import UsersClass from "./UsersClass";
 import Preloader from "../Preloader/Preloader";
-import {getUsers} from "../../API/API";
+import {follow, getUsers, unfollow} from "../../API/API";
 
 
 class UsersAPIComponent extends React.Component<UsersPropsType> {
@@ -32,6 +32,39 @@ class UsersAPIComponent extends React.Component<UsersPropsType> {
             })
     }
 
+    followCallback = (id: string) => {
+        /*        axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${id}`, {}, {
+                    withCredentials: true,
+                    headers: {"API-KEY": "99000c61-8984-4591-9a63-38904803d856"}
+                })*/ //старый код axios
+        this.props.toggleIsFollowingFetching(true, id)
+        follow(id)
+            .then(data => {
+                if (data.resultCode === 0) {
+                    this.props.unfollow(id)
+                }
+                this.props.toggleIsFollowingFetching(false, id)
+            })
+
+    }
+
+    unFollowCallback = (id: string) => {
+        /*        axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${id}`, {
+                    withCredentials: true,
+                    headers: {"API-KEY": "99000c61-8984-4591-9a63-38904803d856"}
+                })*/ //старый код axios
+        this.props.toggleIsFollowingFetching(true, id)
+        unfollow(id)
+            .then(data => {
+                if (data.resultCode === 0) {
+                    this.props.follow(id)
+                }
+                this.props.toggleIsFollowingFetching(false, id)
+            })
+
+    }
+
+
     render() {
         return <div>
             {this.props.isFetching ? <Preloader/> : null}
@@ -41,8 +74,9 @@ class UsersAPIComponent extends React.Component<UsersPropsType> {
                 currentPage={this.props.currentPage}
                 users={this.props.users}
                 onPageChanged={this.onPageChanged}
-                follow={this.props.follow}
-                unfollow={this.props.unfollow}
+                follow={this.followCallback}
+                unfollow={this.unFollowCallback}
+                followingIsProgress={this.props.followingIsProgress}
             />
         </div>
     }

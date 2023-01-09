@@ -3,8 +3,6 @@ import {Button} from "antd";
 import s from "./Users.module.css"
 import {userArrayType} from "../../Redux/reducer/usersReduser";
 import {NavLink} from "react-router-dom";
-import axios from "axios";
-import {follow, unfollow} from "../../API/API";
 
 type usersClassPropsType = {
     users: userArrayType
@@ -12,8 +10,9 @@ type usersClassPropsType = {
     totalUsersCount: number,
     currentPage: number,
     onPageChanged: (p: number) => void,
-    follow: (userId: string) => void,
-    unfollow: (userId: string) => void
+    follow: (id: string) => void,
+    unfollow: (id: string) => void
+    followingIsProgress: string[]
 }
 
 let UsersClass = (props: usersClassPropsType) => {
@@ -30,12 +29,13 @@ let UsersClass = (props: usersClassPropsType) => {
                     withCredentials: true,
                     headers: {"API-KEY": "99000c61-8984-4591-9a63-38904803d856"}
                 })*/ //старый код axios
-        follow(id)
-            .then(data => {
-                if (data.resultCode === 0) {
-                    props.unfollow(id)
-                }
-            })
+        /*        follow(id)
+                    .then(data => {
+                        if (data.resultCode === 0) {
+                            props.unfollow(id)
+                        }
+                    })*/ // старый запрос из этой компоненты меняю на колбэк
+        props.follow(id)
     }
 
     const unFollowHandler = (id: string) => {
@@ -43,12 +43,13 @@ let UsersClass = (props: usersClassPropsType) => {
                     withCredentials: true,
                     headers: {"API-KEY": "99000c61-8984-4591-9a63-38904803d856"}
                 })*/ //старый код axios
-        unfollow(id)
-            .then(data => {
-                if (data.resultCode === 0) {
-                    props.follow(id)
-                }
-            })
+        /*        unfollow(id)
+                    .then(data => {
+                        if (data.resultCode === 0) {
+                            props.follow(id)
+                        }
+                    })*/ // старый запрос из этой компоненты меняю на колбэк
+        props.unfollow(id)
     }
 
     return <div className={s.container}>
@@ -69,8 +70,10 @@ let UsersClass = (props: usersClassPropsType) => {
                             </NavLink>
                         </div>
                         <div>
-                            {u.followed ? <Button onClick={() => unFollowHandler(u.id)}>Unfollow</Button> :
-                                <Button onClick={() => followHandler(u.id)}>Follow</Button>}
+                            {u.followed ? <Button disabled={props.followingIsProgress.some(id => id === u.id)}
+                                                  onClick={() => unFollowHandler(u.id)}>Unfollow</Button> :
+                                <Button disabled={props.followingIsProgress.some(id => id === u.id)}
+                                        onClick={() => followHandler(u.id)}>Follow</Button>}
                         </div>
                     </div>
                     <div className={s.bodyMessage}>
