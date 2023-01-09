@@ -3,13 +3,16 @@ import {Button} from "antd";
 import s from "./Users.module.css"
 import {userArrayType} from "../../Redux/reducer/usersReduser";
 import {NavLink} from "react-router-dom";
+import axios from "axios";
 
 type usersClassPropsType = {
     users: userArrayType
     pageSize: number,
     totalUsersCount: number,
     currentPage: number,
-    onPageChanged: (p: number) => void
+    onPageChanged: (p: number) => void,
+    follow: (userId: string) => void,
+    unfollow: (userId: string) => void
 }
 
 let UsersClass = (props: usersClassPropsType) => {
@@ -19,6 +22,30 @@ let UsersClass = (props: usersClassPropsType) => {
     let pages: number[] = [];
     for (let i = 1; i <= pagesCount; i++) { // тут заменил pagesCount на число 25 что бы не отображались пока что все страницы
         pages.push(i)
+    }
+
+    const followHandler = (id: string) => {
+        axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${id}`, {}, {
+            withCredentials: true,
+            headers: {"API-KEY": "99000c61-8984-4591-9a63-38904803d856"}
+        })
+            .then(res => {
+                if (res.data.resultCode === 0) {
+                    props.unfollow(id)
+                }
+            })
+    }
+
+    const unFollowHandler = (id: string) => {
+        axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${id}`, {
+            withCredentials: true,
+            headers: {"API-KEY": "99000c61-8984-4591-9a63-38904803d856"}
+        })
+            .then(res => {
+                if (res.data.resultCode === 0) {
+                    props.follow(id)
+                }
+            })
     }
 
     return <div className={s.container}>
@@ -38,7 +65,10 @@ let UsersClass = (props: usersClassPropsType) => {
                                   alt="imgProfile"/>
                             </NavLink>
                         </div>
-                        <Button>Follow</Button>
+                        <div>
+                            {u.followed ? <Button onClick={() => unFollowHandler(u.id)}>Unfollow</Button> :
+                                <Button onClick={() => followHandler(u.id)}>Follow</Button>}
+                        </div>
                     </div>
                     <div className={s.bodyMessage}>
                         <div className={s.bodyMessage1}>
@@ -46,8 +76,7 @@ let UsersClass = (props: usersClassPropsType) => {
                             <span className={s.text}>text message</span>
                         </div>
                        <div className={s.bodyMessage2}>
-                        <span className={s.location}>{"city"},
-                            {"country"}</span>
+                        <span className={s.location}>{"city"}, {"country"}</span>
                         <span className={s.status}>{u.status}</span>
                        </div>
                     </div>

@@ -2,7 +2,6 @@ import React from 'react';
 import axios from "axios";
 import {UsersPropsType} from "./UsersContainer";
 import UsersClass from "./UsersClass";
-import preorder from './giphy.gif'
 import Preloader from "../Preloader/Preloader";
 
 
@@ -10,18 +9,25 @@ class UsersAPIComponent extends React.Component<UsersPropsType> {
 
     componentDidMount() {
         this.props.changeFetching(true)
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.totalUsersCount}&count=${this.props.pageSize}`).then((response) => {
-            this.props.changeFetching(false)
-            this.props.setUsers(response.data.items)
-            this.props.setTotalUsersCount(response.data.totalCount)
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.totalUsersCount}&count=${this.props.pageSize}`, {
+            withCredentials: true
         })
+
+            .then((response) => {
+                this.props.changeFetching(false)
+                this.props.setUsers(response.data.items)
+                this.props.setTotalUsersCount(response.data.totalCount)
+            })
     }
 
     onPageChanged = (p: number) => {
         this.props.updateCount(p)
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${p}&count=${this.props.pageSize}`).then((response) => {
-            this.props.setUsers(response.data.items)
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${p}&count=${this.props.pageSize}`, {
+            withCredentials: true
         })
+            .then((response) => {
+                this.props.setUsers(response.data.items)
+            })
     }
 
     render() {
@@ -33,6 +39,8 @@ class UsersAPIComponent extends React.Component<UsersPropsType> {
                 currentPage={this.props.currentPage}
                 users={this.props.users}
                 onPageChanged={this.onPageChanged}
+                follow={this.props.follow}
+                unfollow={this.props.unfollow}
             />
         </div>
     }

@@ -1,6 +1,5 @@
 import React from 'react';
 import './App.css';
-import Header from "./Components/Header/Header";
 import NavBar from "./Components/NavBar/NavBar";
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import Music from "./Components/Music/Music";
@@ -11,6 +10,7 @@ import {AppStateType} from "./Redux/redux-store";
 import DialogsContainer from "./Components/Dialogs/DialogsContainer";
 import UsersContainer from "./Components/Users/UsersContainer";
 import ProfileContainer from "./Components/Profile/ProfileContainer";
+import HeaderContainer from "./Components/Header/HeaderContainer";
 
 
 export type AppLocalType = {
@@ -24,7 +24,7 @@ function App() {
     return (
         <BrowserRouter>
             <div className="App-wrapper">
-                <Header/>
+                <HeaderContainer/>
                 <NavBar/>
                 <div className="App-wrapper-content">
                     <Routes>
