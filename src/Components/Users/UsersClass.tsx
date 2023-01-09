@@ -4,6 +4,7 @@ import s from "./Users.module.css"
 import {userArrayType} from "../../Redux/reducer/usersReduser";
 import {NavLink} from "react-router-dom";
 import axios from "axios";
+import {follow, unfollow} from "../../API/API";
 
 type usersClassPropsType = {
     users: userArrayType
@@ -25,24 +26,26 @@ let UsersClass = (props: usersClassPropsType) => {
     }
 
     const followHandler = (id: string) => {
-        axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${id}`, {}, {
-            withCredentials: true,
-            headers: {"API-KEY": "99000c61-8984-4591-9a63-38904803d856"}
-        })
-            .then(res => {
-                if (res.data.resultCode === 0) {
+        /*        axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${id}`, {}, {
+                    withCredentials: true,
+                    headers: {"API-KEY": "99000c61-8984-4591-9a63-38904803d856"}
+                })*/ //старый код axios
+        follow(id)
+            .then(data => {
+                if (data.resultCode === 0) {
                     props.unfollow(id)
                 }
             })
     }
 
     const unFollowHandler = (id: string) => {
-        axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${id}`, {
-            withCredentials: true,
-            headers: {"API-KEY": "99000c61-8984-4591-9a63-38904803d856"}
-        })
-            .then(res => {
-                if (res.data.resultCode === 0) {
+        /*        axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${id}`, {
+                    withCredentials: true,
+                    headers: {"API-KEY": "99000c61-8984-4591-9a63-38904803d856"}
+                })*/ //старый код axios
+        unfollow(id)
+            .then(data => {
+                if (data.resultCode === 0) {
                     props.follow(id)
                 }
             })

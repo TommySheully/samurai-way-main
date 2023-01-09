@@ -1,32 +1,34 @@
 import React from 'react';
-import axios from "axios";
 import {UsersPropsType} from "./UsersContainer";
 import UsersClass from "./UsersClass";
 import Preloader from "../Preloader/Preloader";
+import {getUsers} from "../../API/API";
 
 
 class UsersAPIComponent extends React.Component<UsersPropsType> {
 
     componentDidMount() {
         this.props.changeFetching(true)
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.totalUsersCount}&count=${this.props.pageSize}`, {
+        /*        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.totalUsersCount}&count=${this.props.pageSize}`, {
             withCredentials: true
-        })
-
-            .then((response) => {
+        })*/   // старый код axios запроса
+        getUsers(this.props.totalUsersCount, this.props.pageSize) // эта функция возвращает промис, поэтому на новой строчке через.then мы на него и подписываемся
+            .then((data) => {
                 this.props.changeFetching(false)
-                this.props.setUsers(response.data.items)
-                this.props.setTotalUsersCount(response.data.totalCount)
+                this.props.setUsers(data.items)
+                this.props.setTotalUsersCount(data.totalCount)
             })
     }
 
     onPageChanged = (p: number) => {
         this.props.updateCount(p)
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${p}&count=${this.props.pageSize}`, {
-            withCredentials: true
-        })
-            .then((response) => {
-                this.props.setUsers(response.data.items)
+        /*        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${p}&count=${this.props.pageSize}`, {
+                    withCredentials: true
+                })*/   // эта функция возвращает промис, поэтому на новой строчке через.then мы на него и подписываемся
+
+        getUsers(p, this.props.pageSize)
+            .then((data) => {
+                this.props.setUsers(data.items)
             })
     }
 
