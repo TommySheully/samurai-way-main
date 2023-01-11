@@ -2,10 +2,15 @@ import React from 'react';
 import {AppStateType} from "../../Redux/redux-store";
 import {connect} from "react-redux";
 import {post} from "../../Redux/store";
-import {AddPostObj, profileType, setUserProfile, upDatePostObj} from "../../Redux/reducer/ProfileDataReduser";
-import axios from "axios";
+import {
+    AddPostObj, getUsersIdThunk,
+    profileType,
+    setUserProfile,
+    upDatePostObj
+} from "../../Redux/reducer/ProfileDataReduser";
 import Profile from "./Profile";
 import {useParams} from "react-router-dom";
+
 
 type mapStateToPropsType = {
     posts: Array<post>,
@@ -13,11 +18,14 @@ type mapStateToPropsType = {
     profile: profileType,
     userId?: string
 }
+
 type mapDispatchToPropsType = {
     upDatePostObj: (newPostTitle: string) => void
     AddPostObj: () => void
-    setUserProfile: (newProfile: string) => void
+    setUserProfile: (newProfile: profileType) => void
+    getUsersIdThunk: (usersId: string) => void
 }
+
 export type ProfilePropsType = mapDispatchToPropsType & mapStateToPropsType
 
 
@@ -28,9 +36,10 @@ class ProfileContainer extends React.Component<ProfilePropsType, any> {
         if (!userId) {
             userId = '2'
         }
-        axios.get(`https://social-network.samuraijs.com/api/1.0/profile/` + userId).then((response) => {
-            this.props.setUserProfile(response.data)
-        })
+        this.props.getUsersIdThunk(userId)
+        /*        axios.get(`https://social-network.samuraijs.com/api/1.0/profile/` + userId).then((response) => {
+                    this.props.setUserProfile(response.data)
+                })*/ //старый код который заменили на санки
     }
 
     render() {
@@ -58,4 +67,6 @@ export default connect<mapStateToPropsType, mapDispatchToPropsType, {}, AppState
     AddPostObj,
     upDatePostObj,
     setUserProfile,
+    getUsersIdThunk
 })(TakeParams);
+

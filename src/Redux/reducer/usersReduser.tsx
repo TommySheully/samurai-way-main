@@ -1,6 +1,9 @@
 import React from 'react';
 import {v1} from "uuid";
-import {ActionsType} from "../redux-store";
+import {ActionsType, AppStateType} from "../redux-store";
+import {Dispatch} from "redux";
+import {ThunkAction, ThunkDispatch} from "redux-thunk";
+import {api} from "../../API/API";
 
 const FOLLOW = 'FOLLOW';
 const UNFOLLOW = 'UNFOLLOW';
@@ -130,5 +133,48 @@ export const toggleIsFollowingFetching = (followingIsProgressValue: boolean, id:
     followingIsProgressValue: followingIsProgressValue,
     id: id
 } as const);
+
+// санки создаем и типы для них
+type ThunkType = ThunkAction<void, AppStateType, unknown, ActionsType>
+type ThunkDispatchType = ThunkDispatch<AppStateType, unknown, ActionsType>
+
+export const followThunk = (id: string): ThunkType => {
+    return (dispatch: ThunkDispatchType, getState: () => AppStateType) => {
+        dispatch(toggleIsFollowingFetching(true, id))
+
+        api.follow(id).then(data => {  // делаем вызов метода (функции) follow в объекте api который делает запрос на сервер и возвращает объект, а не промис, потому что подписка происходит сразу в методе и возвращает response.data
+            if (data.resultCode === 0) {  // проверка, если нет ошибок, делаем.
+                unfollow(id) // меняем стейт на false что значит что мы уже подписались, и ui реагирует сменой кнопки на отписаться.
+            }
+
+            dispatch(toggleIsFollowingFetching(false, id))
+        })
+    }
+}
+export const unfollowThunk = (id: string): ThunkType => {
+    return (dispatch: ThunkDispatchType, getState: () => AppStateType) => {
+
+        dispatch(toggleIsFollowingFetching(true, id))
+        api.unfollow(id)
+            .then(data => {
+                if (data.resultCode === 0) {
+                    dispatch(follow(id))
+                }
+                dispatch(toggleIsFollowingFetching(false, id))
+            })
+    }
+}
+export const getUsersThunk = (totalUsersCount: number, pageSize: number): ThunkType => {
+    return (dispatch: ThunkDispatchType, getState: () => AppStateType) => {
+        dispatch(changeFetching(true))
+        api.getUsers(totalUsersCount, pageSize) // эта функция возвращает промис, поэтому на новой строчке через.then мы на него и подписываемся
+            .then((data) => {
+                dispatch(changeFetching(false))
+                dispatch(setUsers(data.items))
+                dispatch(setTotalUsersCount(data.totalCount))
+            })
+    }
+}
+
 
 export default usersReducer;

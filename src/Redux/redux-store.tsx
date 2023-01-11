@@ -1,4 +1,4 @@
-import {combineReducers, createStore} from "redux";
+import {applyMiddleware, combineReducers, createStore} from "redux";
 import dialogsDataReducer, {actionAddMessage, actionUpDateMessage} from "./reducer/dialogsDataReduser";
 import profilePageReducer, {AddPostObj, setUserProfile, upDatePostObj} from "./reducer/ProfileDataReduser";
 import authReducer, {setUserData} from "./reducer/authReduser";
@@ -10,6 +10,7 @@ import usersReducer, {
     unfollow,
     updateCount
 } from "./reducer/usersReduser";
+import thunk from "redux-thunk";
 
 export type ActionsType =
     actionAddPost
@@ -55,6 +56,6 @@ let reducers = combineReducers({
     auth: authReducer
 })
 
-let store = createStore(reducers);
+let store = createStore(reducers, applyMiddleware(thunk));
 
 export default store;

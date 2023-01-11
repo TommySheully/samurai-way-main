@@ -1,6 +1,9 @@
 import React from 'react';
 import {v1} from "uuid";
-import {ActionsType} from "../redux-store";
+import {ActionsType, AppStateType} from "../redux-store";
+import {api} from "../../API/API";
+import {ThunkAction, ThunkDispatch} from "redux-thunk";
+import {changeFetching} from "./usersReduser";
 
 const ADD_POST = 'ADD-POST';
 const UPDATE_POST = 'UPDATE-POST';
@@ -91,6 +94,22 @@ const profilePageReducer = (state: initialprofilePageStateType = initialState, a
 
 export const AddPostObj = () => ({type: 'ADD-POST'} as const);
 export const upDatePostObj = (newPostTitle: string) => ({type: 'UPDATE-POST', newPostTitle: newPostTitle} as const);
-export const setUserProfile = (newProfile: any) => ({type: 'SET-USER-PROFILE', newProfile: newProfile} as const);
+export const setUserProfile = (newProfile: profileType) => ({
+    type: 'SET-USER-PROFILE',
+    newProfile: newProfile
+} as const);
+
+// санки создаем и типы для них
+export type ThunkType = ThunkAction<void, AppStateType, unknown, ActionsType>
+export type ThunkDispatchType = ThunkDispatch<AppStateType, unknown, ActionsType>
+
+export const getUsersIdThunk = (usersId: string): ThunkType => {
+    return (dispatch: ThunkDispatchType, getState: () => AppStateType) => {
+        api.getUsersId(usersId)
+            .then((data) => {
+                dispatch(setUserProfile(data))
+            })
+    }
+}
 
 export default profilePageReducer;
